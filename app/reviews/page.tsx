@@ -1,0 +1,99 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import { Star } from "lucide-react";
+import { ReviewForm } from "@/components/review-form";
+import { SectionHeader } from "@/components/section-header";
+import { listReviews } from "@/lib/store";
+
+export const metadata: Metadata = {
+  title: "Customer Reviews",
+  description: "Read Zaiqa Junction customer testimonials, Foodpanda-style ratings, and review gallery photos."
+};
+
+export default async function ReviewsPage() {
+  const reviews = await listReviews();
+  const average = reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
+
+  return (
+    <>
+      <section className="bg-charcoal text-white">
+        <div className="container-pad py-10 sm:py-14">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-saffron">Customer proof</p>
+          <h1 className="mt-3 max-w-3xl font-display text-4xl font-bold sm:text-5xl">Reviews that make direct ordering feel safe.</h1>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <div className="rounded-lg border border-white/10 bg-white/[0.08] px-4 py-3">
+              <p className="text-3xl font-black text-white">{average.toFixed(1)}</p>
+              <p className="text-xs uppercase tracking-wide text-orange-100">Average rating</p>
+            </div>
+            <div className="rounded-lg border border-white/10 bg-white/[0.08] px-4 py-3">
+              <p className="text-3xl font-black text-white">{reviews.length}</p>
+              <p className="text-xs uppercase tracking-wide text-orange-100">Approved reviews</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-cream py-12 sm:py-16">
+        <div className="container-pad grid gap-8 lg:grid-cols-[1fr_360px] lg:items-start">
+          <div>
+            <SectionHeader
+              eyebrow="Testimonials"
+              title="What local customers are saying"
+              description="The admin dashboard can approve new website reviews and blend them with Foodpanda, WhatsApp, and Instagram proof."
+            />
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
+              {reviews.map((review) => (
+                <article key={review.id} className="surface overflow-hidden">
+                  {review.image ? (
+                    <div className="relative aspect-[16/10]">
+                      <Image src={review.image} alt={`${review.name} review food photo`} fill sizes="45vw" className="object-cover" />
+                    </div>
+                  ) : null}
+                  <div className="p-5">
+                    <div className="flex text-saffron">
+                      {Array.from({ length: review.rating }).map((_, index) => (
+                        <Star key={index} size={16} fill="currentColor" />
+                      ))}
+                    </div>
+                    <p className="mt-4 text-sm leading-6 text-stone-700">{review.quote}</p>
+                    <div className="mt-4 flex items-center justify-between gap-3">
+                      <p className="font-black text-charcoal">{review.name}</p>
+                      <p className="rounded-full bg-cream px-2.5 py-1 text-xs font-black text-chilli">{review.source}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+          <aside className="lg:sticky lg:top-24">
+            <ReviewForm />
+          </aside>
+        </div>
+      </section>
+
+      <section className="bg-white py-12 sm:py-16">
+        <div className="container-pad">
+          <SectionHeader
+            eyebrow="Review gallery"
+            title="Food photos customers can inspect before ordering"
+            description="Gallery proof is especially valuable for home-based kitchens because it shows actual packaging, portion size, and food finish."
+          />
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {[
+              "/images/whatsapp/zaiqa-01.jpg",
+              "/images/whatsapp/zaiqa-08.jpg",
+              "/images/whatsapp/zaiqa-10.jpg",
+              "/images/whatsapp/zaiqa-12.jpg",
+              "/images/whatsapp/zaiqa-15.jpg",
+              "/images/whatsapp/zaiqa-17.jpg"
+            ].map((src) => (
+              <div key={src} className="relative aspect-square overflow-hidden rounded-lg">
+                <Image src={src} alt="Zaiqa Junction review gallery" fill sizes="18vw" className="object-cover" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
