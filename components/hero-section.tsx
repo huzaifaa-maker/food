@@ -14,7 +14,7 @@ function HeroVisual({ className = "" }: { className?: string }) {
   return (
     <div className={`relative overflow-hidden ${className}`} aria-hidden>
       <Image
-        src="/images/menu/burger-plate.webp"
+        src="/images/menu/zinger-burger.webp"
         alt="Delicious plated meal"
         className="object-cover"
         fill
