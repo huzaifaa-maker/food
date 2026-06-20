@@ -46,10 +46,10 @@ export const metadata: Metadata = {
     siteName: "Zaiqa Junction",
     images: [
       {
-        url: "/images/menu/zinger-burger.webp",
+        url: "/images/menu/kitchen.webp",
         width: 1200,
         height: 630,
-        alt: "Premium crispy burger from Zaiqa Junction"
+        alt: "Warm home kitchen at Zaiqa Junction"
       }
     ],
     locale: "en_PK",
@@ -71,7 +71,7 @@ const restaurantSchema = {
   name: business.name,
   description: business.tagline,
   telephone: business.phoneDisplay,
-  image: `${business.siteUrl}/images/menu/zinger-burger.webp`,
+  image: `${business.siteUrl}/images/menu/kitchen.webp`,
   servesCuisine: ["Pakistani", "Fast Food", "Homemade Food"],
   priceRange: "Rs. 30 - Rs. 2999",
   openingHours: "Mo-Su 18:00-01:00",
@@ -101,7 +101,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <CartProvider>
           <SiteHeader />
-          <main className="pb-20 md:pb-0">
+          <main className="pb-[calc(5.25rem+env(safe-area-inset-bottom))] md:pb-0">
             <PageTransition>{children}</PageTransition>
           </main>
           <SiteFooter />

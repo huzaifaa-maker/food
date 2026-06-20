@@ -14,6 +14,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
   const [filter, setFilter] = useState("all");
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const filteredItems = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -36,15 +37,82 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
     });
   }, [category, filter, items, query]);
 
+  const filterOptions = [
+    ["all", "All"],
+    ["popular", "Popular"],
+    ["under600", "Under Rs. 600"],
+    ["family", "Family"],
+    ["spicy", "Spicy"]
+  ] as const;
+
   return (
-    <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
-      <aside className="lg:sticky lg:top-24 lg:self-start">
+    <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
+      <div className="space-y-4 lg:hidden">
+        <div className="flex items-center rounded-xl border border-stone-200 bg-white px-3 shadow-sm">
+          <Search size={18} className="shrink-0 text-stone-500" aria-hidden />
+          <input
+            id="menu-search-mobile"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search dishes..."
+            className="min-h-12 w-full bg-transparent px-3 text-base outline-none"
+            aria-label="Search menu"
+          />
+          {query ? (
+            <button type="button" aria-label="Clear search" className="min-h-11 min-w-11" onClick={() => setQuery("")}>
+              <X size={16} />
+            </button>
+          ) : null}
+        </div>
+
+        <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <button type="button" onClick={() => setCategory("all")} className={chipClass(category === "all", true)}>
+            All
+          </button>
+          {categories.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setCategory(item.id)}
+              className={chipClass(category === item.id, true)}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setFiltersOpen((value) => !value)}
+          className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-stone-200 bg-white px-4 text-sm font-bold text-charcoal"
+        >
+          <SlidersHorizontal size={16} aria-hidden />
+          {filtersOpen ? "Hide filters" : "More filters"}
+        </button>
+
+        {filtersOpen ? (
+          <div className="flex flex-wrap gap-2">
+            {filterOptions.map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => setFilter(value)}
+                className={chipClass(filter === value, false)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        ) : null}
+      </div>
+
+      <aside className="hidden lg:sticky lg:top-24 lg:block lg:self-start">
         <div className="surface p-4">
           <label className="text-sm font-black text-charcoal" htmlFor="menu-search">
             Search menu
           </label>
           <div className="mt-2 flex items-center rounded-md border border-stone-200 bg-white px-3">
-            <Search size={18} className="text-stone-500" />
+            <Search size={18} className="text-stone-500" aria-hidden />
             <input
               id="menu-search"
               value={query}
@@ -62,11 +130,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
           <div className="mt-5">
             <p className="text-sm font-black text-charcoal">Categories</p>
             <div className="mt-3 grid gap-2">
-              <button
-                type="button"
-                onClick={() => setCategory("all")}
-                className={chipClass(category === "all")}
-              >
+              <button type="button" onClick={() => setCategory("all")} className={chipClass(category === "all", false)}>
                 All items
               </button>
               {categories.map((item) => (
@@ -74,7 +138,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
                   key={item.id}
                   type="button"
                   onClick={() => setCategory(item.id)}
-                  className={chipClass(category === item.id)}
+                  className={chipClass(category === item.id, false)}
                 >
                   {item.name}
                 </button>
@@ -84,22 +148,16 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
 
           <div className="mt-5">
             <p className="inline-flex items-center gap-2 text-sm font-black text-charcoal">
-              <SlidersHorizontal size={16} />
+              <SlidersHorizontal size={16} aria-hidden />
               Filters
             </p>
-            <div className="mt-3 grid grid-cols-2 gap-2 lg:grid-cols-1">
-              {[
-                ["all", "All"],
-                ["popular", "Popular"],
-                ["under600", "Under Rs. 600"],
-                ["family", "Family deals"],
-                ["spicy", "Spicy"]
-              ].map(([value, label]) => (
+            <div className="mt-3 grid gap-2">
+              {filterOptions.map(([value, label]) => (
                 <button
                   key={value}
                   type="button"
                   onClick={() => setFilter(value)}
-                  className={chipClass(filter === value)}
+                  className={chipClass(filter === value, false)}
                 >
                   {label}
                 </button>
@@ -110,21 +168,21 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
       </aside>
 
       <section>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm font-bold text-stone-600">
             Showing <span className="text-charcoal">{filteredItems.length}</span> items
           </p>
           <p className="rounded-full bg-cream px-3 py-1 text-xs font-black uppercase tracking-wide text-chilli">
-            ZAIQA15 on orders Rs. 999+
+            ZAIQA15 on Rs. 999+
           </p>
         </div>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
           {filteredItems.map((item) => (
             <ProductCard key={item.id} item={item} />
           ))}
         </div>
         {!filteredItems.length ? (
-          <div className="mt-4 rounded-lg border border-dashed border-stone-300 bg-white p-8 text-center">
+          <div className="mt-4 rounded-xl border border-dashed border-stone-300 bg-white p-8 text-center">
             <p className="font-black text-charcoal">No menu items found.</p>
             <p className="mt-2 text-sm text-stone-600">Try a different category or search term.</p>
           </div>
@@ -134,8 +192,10 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
   );
 }
 
-function chipClass(active: boolean) {
-  return `min-h-10 rounded-md px-3 text-left text-sm font-bold transition ${
+function chipClass(active: boolean, pill: boolean) {
+  return `${
+    pill ? "min-h-11 shrink-0 snap-start rounded-full px-4 py-2 text-sm" : "min-h-11 rounded-md px-3 text-left text-sm"
+  } font-bold transition active:scale-[0.97] ${
     active ? "bg-charcoal text-white" : "bg-stone-100 text-stone-700 hover:bg-cream hover:text-chilli"
   }`;
 }

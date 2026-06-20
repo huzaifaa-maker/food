@@ -32,7 +32,7 @@ const pillars = [
 
 export function WhyChooseUs() {
   return (
-    <FadeInSection className="bg-white py-14 sm:py-20">
+    <FadeInSection className="bg-white py-10 sm:py-16 lg:py-20">
       <div className="container-pad">
         <SectionHeader
           align="center"

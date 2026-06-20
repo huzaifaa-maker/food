@@ -14,11 +14,10 @@ type FeaturedMenuProps = {
 
 const filters: Array<{ id: "all" | MealTime; label: string }> = [
   { id: "all", label: "All" },
-  { id: "breakfast", label: "Breakfast" },
-  { id: "lunch", label: "Lunch" },
   { id: "dinner", label: "Dinner" },
-  { id: "desserts", label: "Desserts" },
-  { id: "beverages", label: "Beverages" }
+  { id: "beverages", label: "Drinks" },
+  { id: "lunch", label: "Lunch" },
+  { id: "desserts", label: "Desserts" }
 ];
 
 const emptyMessages: Record<MealTime, string> = {
@@ -40,29 +39,24 @@ export function FeaturedMenu({ items }: FeaturedMenuProps) {
   }, [active, items]);
 
   return (
-    <FadeInSection id="menu" className="bg-cream py-14 sm:py-20">
+    <FadeInSection id="menu" className="bg-cream py-10 sm:py-16 lg:py-20">
       <div className="container-pad">
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-          <SectionHeader
-            eyebrow="Featured menu"
-            title="Homemade favorites, ready to order"
-            description="Filter by meal time, add to cart, and checkout in minutes. Full cuisine categories are on the menu page."
-          />
-          <Link href="/menu" className="btn-secondary shrink-0">
-            Full Menu <ArrowRight size={18} />
-          </Link>
-        </div>
+        <SectionHeader
+          eyebrow="Featured menu"
+          title="Homemade favorites, ready to order"
+          description="Tap to add — checkout takes under two minutes on mobile."
+        />
 
-        <div className="mt-8 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mt-6 flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {filters.map((filter) => (
             <button
               key={filter.id}
               type="button"
               onClick={() => setActive(filter.id)}
-              className={`shrink-0 rounded-full px-4 py-2 text-sm font-bold transition ${
+              className={`min-h-11 shrink-0 snap-start rounded-full px-4 py-2.5 text-sm font-bold transition active:scale-[0.97] ${
                 active === filter.id
                   ? "bg-ember text-white shadow-glow"
-                  : "border border-stone-200 bg-white text-charcoal hover:border-ember hover:text-ember"
+                  : "border border-stone-200 bg-white text-charcoal"
               }`}
             >
               {filter.label}
@@ -71,13 +65,13 @@ export function FeaturedMenu({ items }: FeaturedMenuProps) {
         </div>
 
         {filtered.length > 0 ? (
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-5 grid gap-3 sm:mt-6 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {filtered.map((item) => (
               <ProductCard key={item.id} item={item} />
             ))}
           </div>
         ) : (
-          <div className="mt-8 rounded-2xl border border-dashed border-stone-300 bg-white p-8 text-center">
+          <div className="mt-6 rounded-2xl border border-dashed border-stone-300 bg-white p-8 text-center">
             <p className="text-sm leading-6 text-stone-600">
               {active === "all" ? "No items available right now." : emptyMessages[active]}
             </p>
@@ -86,6 +80,12 @@ export function FeaturedMenu({ items }: FeaturedMenuProps) {
             </Link>
           </div>
         )}
+
+        <div className="mt-6 sm:mt-8">
+          <Link href="/menu" className="btn-secondary w-full sm:w-auto">
+            Full Menu <ArrowRight size={18} aria-hidden />
+          </Link>
+        </div>
       </div>
     </FadeInSection>
   );

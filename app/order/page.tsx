@@ -18,22 +18,20 @@ export default async function OrderPage() {
   return (
     <>
       <section className="bg-charcoal text-white">
-        <div className="container-pad grid gap-6 py-10 sm:py-14 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-saffron">Direct online ordering</p>
-            <h1 className="mt-3 font-display text-4xl font-bold sm:text-5xl">Cart, checkout, WhatsApp confirmation.</h1>
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-orange-50 sm:text-base">
-              Place the order on the website, confirm it on WhatsApp, then track the status from pending to delivered.
-            </p>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 lg:w-[360px]">
+        <div className="container-pad py-8 sm:py-12">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-saffron">Direct online ordering</p>
+          <h1 className="mt-3 font-display text-3xl font-bold sm:text-4xl">Cart, checkout, WhatsApp confirmation.</h1>
+          <p className="mt-3 max-w-2xl text-[15px] leading-6 text-orange-50 sm:text-base">
+            Add items, submit details, confirm on WhatsApp — optimized for one-hand mobile checkout.
+          </p>
+          <div className="mt-5 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
             <a
               href={buildWhatsAppUrl("Assalam o Alaikum Zaiqa Junction, I need help placing an order.")}
               target="_blank"
               rel="noreferrer"
-              className="btn-primary"
+              className="btn-primary col-span-2 sm:col-span-1"
             >
-              <MessageCircle size={18} /> WhatsApp
+              <MessageCircle size={18} aria-hidden /> WhatsApp
             </a>
             <a href={business.foodpandaUrl} target="_blank" rel="noreferrer" className="btn-secondary">
               Foodpanda
@@ -42,7 +40,7 @@ export default async function OrderPage() {
         </div>
       </section>
 
-      <section className="bg-cream py-12 sm:py-16">
+      <section className="bg-cream py-8 sm:py-12">
         <div className="container-pad">
           <div className="mb-6 grid gap-3 sm:grid-cols-3">
             {([

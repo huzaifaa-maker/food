@@ -37,11 +37,11 @@ video {
   }
 
   .btn-primary {
-    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-ember px-5 py-3 text-sm font-black text-[#0F0F0F] shadow-glow transition hover:bg-[#ff9451] hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-amber focus:ring-offset-2;
+    @apply inline-flex min-h-12 touch-manipulation items-center justify-center gap-2 rounded-2xl bg-ember px-5 py-3 text-sm font-black text-[#0F0F0F] shadow-glow transition active:scale-[0.98] hover:bg-[#ff9451] hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-amber focus:ring-offset-2;
   }
 
   .btn-secondary {
-    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-black text-charcoal shadow-soft transition hover:border-ember hover:text-ember hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2 focus:ring-offset-cream;
+    @apply inline-flex min-h-12 touch-manipulation items-center justify-center gap-2 rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-black text-charcoal shadow-soft transition active:scale-[0.98] hover:border-ember hover:text-ember hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2 focus:ring-offset-cream;
   }
 
   .surface {
