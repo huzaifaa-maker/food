@@ -42,9 +42,9 @@ export function FeaturedMenu({ items }: FeaturedMenuProps) {
     <FadeInSection id="menu" className="bg-cream py-10 sm:py-16 lg:py-20">
       <div className="container-pad">
         <SectionHeader
-          eyebrow="Featured menu"
-          title="Homemade favorites, ready to order"
-          description="Tap to add — checkout takes under two minutes on mobile."
+          eyebrow="Order now"
+          title="Featured dishes"
+          description="Tap Add to customize size, extras, and notes."
         />
 
         <div className="mt-6 flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">

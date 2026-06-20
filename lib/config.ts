@@ -1,32 +1,35 @@
 export const business = {
   name: "Zaiqa Junction",
-  tagline: "Homemade Pakistani comfort food, delivered fresh",
-  phoneDisplay: "0317-6802585",
-  whatsappPhone: process.env.NEXT_PUBLIC_WHATSAPP_PHONE ?? "923176802585",
+  tagline: "Homemade Pakistani comfort food, delivered fresh in Multan",
+  phoneDisplay: "0302-6665620",
+  whatsappPhone: process.env.NEXT_PUBLIC_WHATSAPP_PHONE ?? "923026665620",
+  email: "Umarfarooq5674@gmail.com",
   foodpandaUrl: process.env.NEXT_PUBLIC_FOODPANDA_URL ?? "https://www.foodpanda.pk/",
   googleBusinessUrl:
-    process.env.NEXT_PUBLIC_GOOGLE_BUSINESS_URL ?? "https://www.google.com/search?q=Zaiqa+Junction",
+    process.env.NEXT_PUBLIC_GOOGLE_BUSINESS_URL ?? "https://www.google.com/search?q=Zaiqa+Junction+Multan",
   mapsEmbedUrl:
     process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL ??
-    "https://www.google.com/maps?q=Zaiqa%20Junction&output=embed",
+    "https://www.google.com/maps?q=Shah+Shams+Colony+Multan&output=embed",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  hours: "6:00 PM - 1:00 AM",
+  hours: "6:00 PM - 2:00 AM",
   currency: "Rs.",
+  kitchenArea: "Shah Shams Colony, Multan",
   social: {
     facebook: "https://www.facebook.com/",
     instagram: "https://www.instagram.com/"
-  }
+  },
+  logoThumb: "/images/brand/logo-thumb.webp"
 };
 
 export const chef = {
-  name: "Chef Ayesha Khan",
+  name: "Chef Umar Farooq",
   title: "Founder & Head Chef",
-  bio: "Ayesha started Zaiqa Junction from her home kitchen with one goal: serve the same gravies, burgers, and family meals she cooks for her own table — fresh, hygienic, and full of authentic Pakistani flavor.",
+  bio: "Umar Farooq runs Zaiqa Junction from Shah Shams, Multan — serving the same handis, burgers, wraps, and chai he cooks for his own family, fresh and hygienic every evening.",
   image: "/images/menu/kitchen.webp",
   yearsExperience: 8,
   highlights: [
     "Family recipes refined over years of home cooking",
-    "Every batch prepared in a clean, dedicated kitchen space",
-    "Personally checks packaging and order accuracy before dispatch"
+    "Small-batch prep in a dedicated home kitchen",
+    "Personally checks packaging before every dispatch"
   ]
 };

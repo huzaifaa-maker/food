@@ -3,6 +3,8 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { CartProvider } from "@/components/cart-provider";
 import { FloatingCtas } from "@/components/floating-ctas";
 import { FloatingWhatsApp } from "@/components/floating-whatsapp";
+import { AddToCartSheet } from "@/components/add-to-cart-sheet";
+import { CartToast } from "@/components/cart-toast";
 import { PageTransition } from "@/components/page-transition";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -71,6 +73,14 @@ const restaurantSchema = {
   name: business.name,
   description: business.tagline,
   telephone: business.phoneDisplay,
+  email: business.email,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Multan",
+    addressRegion: "Punjab",
+    addressCountry: "PK",
+    streetAddress: business.kitchenArea
+  },
   image: `${business.siteUrl}/images/menu/kitchen.webp`,
   servesCuisine: ["Pakistani", "Fast Food", "Homemade Food"],
   priceRange: "Rs. 30 - Rs. 2999",
@@ -105,6 +115,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <PageTransition>{children}</PageTransition>
           </main>
           <SiteFooter />
+          <AddToCartSheet />
+          <CartToast />
           <FloatingWhatsApp />
           <FloatingCtas />
         </CartProvider>

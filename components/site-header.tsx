@@ -1,10 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, ShoppingBag, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCart } from "@/components/cart-provider";
+import { business } from "@/lib/config";
 
 const routeLinks = [
   { href: "/menu", label: "Menu" },
@@ -14,14 +16,14 @@ const routeLinks = [
 
 const homeLinks = [
   { href: "/#menu", label: "Menu" },
-  { href: "/#about", label: "Story" },
+  { href: "/#full-menu", label: "Deals" },
   { href: "/#reviews", label: "Reviews" },
   { href: "/#contact", label: "Contact" }
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const { itemCount } = useCart();
+  const { itemCount, cartPulse } = useCart();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const isHome = pathname === "/";
@@ -62,8 +64,8 @@ export function SiteHeader() {
     >
       <div className="container-pad flex min-h-14 items-center justify-between sm:min-h-16">
         <Link href="/" className="flex min-h-11 min-w-0 items-center gap-2.5 sm:gap-3" onClick={() => setOpen(false)}>
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ember font-display text-xl font-black text-white shadow-glow">
-            Z
+          <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl bg-white shadow-glow ring-1 ring-stone-200">
+            <Image src={business.logoThumb} alt="" fill sizes="40px" className="object-cover" priority />
           </span>
           <span className="min-w-0">
             <span className="block truncate text-sm font-black uppercase leading-4 tracking-wide text-charcoal">
@@ -99,7 +101,9 @@ export function SiteHeader() {
           </Link>
           <Link
             href="/order"
-            className="relative inline-flex h-11 w-11 items-center justify-center rounded-xl bg-ember text-white shadow-glow active:scale-95 lg:hidden"
+            className={`relative inline-flex h-11 w-11 items-center justify-center rounded-xl bg-ember text-white shadow-glow transition active:scale-95 lg:hidden ${
+              cartPulse ? "scale-110 ring-2 ring-saffron ring-offset-2" : ""
+            }`}
             aria-label={`Open cart${itemCount > 0 ? `, ${itemCount} items` : ""}`}
           >
             <ShoppingBag size={20} aria-hidden />

@@ -151,10 +151,11 @@ insert into public.categories (id, name, slug, description, sort_order) values
 on conflict (id) do nothing;
 
 insert into public.delivery_areas (id, name, fee, eta, minimum_order) values
-  ('nearby', 'Nearby Home Delivery Zone', 120, '25-35 min', 499),
-  ('gulshan', 'Gulshan / Johar', 180, '35-45 min', 699),
-  ('north', 'North Nazimabad / Buffer Zone', 220, '40-55 min', 899),
-  ('pickup', 'Pickup from Kitchen', 0, 'Ready in 20-30 min', 0)
+  ('shah-shams', 'Shah Shams / Gulgasht / Nearby', 80, '20-30 min', 499),
+  ('city-housing', 'City Housing / Bosan Road', 120, '30-40 min', 599),
+  ('multan-cantt', 'Cantt / Multan City', 150, '35-45 min', 699),
+  ('wapda-bahadurpur', 'WAPDA Town / Bahadurpur', 180, '40-50 min', 799),
+  ('pickup', 'Pickup — Shah Shams Kitchen', 0, 'Ready in 20-30 min', 0)
 on conflict (id) do nothing;
 
 insert into public.coupons (code, description, percent_off, amount_off, minimum_subtotal) values

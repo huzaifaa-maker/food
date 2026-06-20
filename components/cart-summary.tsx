@@ -5,7 +5,7 @@ import { useCart } from "@/components/cart-provider";
 import { formatCurrency } from "@/lib/format";
 
 export function CartSummary({ compact = false }: { compact?: boolean }) {
-  const { lines, removeItem, setQuantity, subtotal } = useCart();
+  const { lines, removeLine, setLineQuantity, subtotal } = useCart();
 
   if (!lines.length) {
     return (
@@ -23,27 +23,39 @@ export function CartSummary({ compact = false }: { compact?: boolean }) {
       </div>
       <div className="divide-y divide-stone-100">
         {lines.map((line) => (
-          <div key={line.menuItemId} className="grid grid-cols-[1fr_auto] gap-3 p-4">
-            <div>
+          <div key={line.lineId} className="grid grid-cols-[1fr_auto] gap-3 p-4">
+            <div className="min-w-0">
               <p className="font-bold text-charcoal">{line.name}</p>
               <p className="mt-1 text-sm text-stone-600">{formatCurrency(line.price)} each</p>
+              {line.addons.length > 0 ? (
+                <ul className="mt-2 space-y-0.5 text-xs text-stone-500">
+                  {line.addons.map((addon) => (
+                    <li key={addon.id}>+ {addon.label} ({formatCurrency(addon.price)})</li>
+                  ))}
+                </ul>
+              ) : null}
+              {line.comment ? (
+                <p className="mt-2 rounded-lg bg-stone-50 px-2.5 py-2 text-xs italic text-stone-600">
+                  Note: {line.comment}
+                </p>
+              ) : null}
               <div className="mt-3 inline-flex items-center rounded-md border border-stone-200">
                 <button
                   type="button"
                   aria-label={`Decrease ${line.name}`}
-                  className="grid h-9 w-9 place-items-center text-charcoal"
-                  onClick={() => setQuantity(line.menuItemId, line.quantity - 1)}
+                  className="grid h-10 w-10 place-items-center text-charcoal active:bg-stone-100"
+                  onClick={() => setLineQuantity(line.lineId, line.quantity - 1)}
                 >
                   <Minus size={16} />
                 </button>
-                <span className="grid h-9 min-w-10 place-items-center border-x border-stone-200 text-sm font-bold">
+                <span className="grid h-10 min-w-10 place-items-center border-x border-stone-200 text-sm font-bold">
                   {line.quantity}
                 </span>
                 <button
                   type="button"
                   aria-label={`Increase ${line.name}`}
-                  className="grid h-9 w-9 place-items-center text-charcoal"
-                  onClick={() => setQuantity(line.menuItemId, line.quantity + 1)}
+                  className="grid h-10 w-10 place-items-center text-charcoal active:bg-stone-100"
+                  onClick={() => setLineQuantity(line.lineId, line.quantity + 1)}
                 >
                   <Plus size={16} />
                 </button>
@@ -54,8 +66,8 @@ export function CartSummary({ compact = false }: { compact?: boolean }) {
               <button
                 type="button"
                 aria-label={`Remove ${line.name}`}
-                className="mt-4 inline-flex h-9 w-9 items-center justify-center rounded-md bg-stone-100 text-stone-600 hover:text-chilli"
-                onClick={() => removeItem(line.menuItemId)}
+                className="mt-4 inline-flex h-10 w-10 items-center justify-center rounded-md bg-stone-100 text-stone-600 hover:text-chilli"
+                onClick={() => removeLine(line.lineId)}
               >
                 <Trash2 size={16} />
               </button>

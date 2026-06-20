@@ -435,7 +435,7 @@ function MenuShowcase({ items, bestSellers }: { items: MenuItem[]; bestSellers: 
 }
 
 function TodaysSpecial({ item }: { item: MenuItem }) {
-  const { addItem } = useCart();
+  const { openCustomizer } = useCart();
   const image = resolveMenuImage(item);
 
   return (
@@ -484,7 +484,7 @@ function TodaysSpecial({ item }: { item: MenuItem }) {
           </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <button type="button" onClick={() => addItem(item)} className="btn-primary">
+            <button type="button" onClick={() => openCustomizer(item)} className="btn-primary">
               Add Special <ShoppingBag size={18} />
             </button>
             <a

@@ -22,7 +22,7 @@ const coupons: Record<string, { label: string; minSubtotal: number; discount: (s
 
 export function CheckoutFlow({ deliveryAreas }: CheckoutFlowProps) {
   const { lines, subtotal, clearCart } = useCart();
-  const [deliveryAreaId, setDeliveryAreaId] = useState(deliveryAreas[0]?.id ?? "nearby");
+  const [deliveryAreaId, setDeliveryAreaId] = useState(deliveryAreas[0]?.id ?? "shah-shams");
   const [couponCode, setCouponCode] = useState("ZAIQA15");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cash_on_delivery");
   const [loading, setLoading] = useState(false);
@@ -64,7 +64,11 @@ export function CheckoutFlow({ deliveryAreas }: CheckoutFlowProps) {
           paymentMethod,
           items: lines.map((line) => ({
             menuItemId: line.menuItemId,
-            quantity: line.quantity
+            quantity: line.quantity,
+            name: line.name,
+            price: line.price,
+            addons: line.addons,
+            comment: line.comment
           }))
         })
       });

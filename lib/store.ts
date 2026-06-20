@@ -159,15 +159,22 @@ export async function createOrder(input: OrderInput) {
   const orderLines = input.items
     .map((line) => {
       const item = items.find((candidate) => candidate.id === line.menuItemId);
-      if (!item) {
+      if (!item && !line.name) {
         return null;
       }
 
+      const name = line.name ?? item!.name;
+      const price = line.price ?? item!.price;
+
       return {
-        menuItemId: item.id,
-        name: item.name,
-        price: item.price,
-        quantity: Math.max(1, Number(line.quantity))
+        lineId: `order-line-${line.menuItemId}-${Math.random().toString(36).slice(2, 8)}`,
+        menuItemId: line.menuItemId,
+        name,
+        basePrice: item?.price ?? price,
+        price,
+        quantity: Math.max(1, Number(line.quantity)),
+        addons: line.addons ?? [],
+        comment: line.comment
       };
     })
     .filter((line): line is NonNullable<typeof line> => Boolean(line));
@@ -336,11 +343,14 @@ function fromDbOrder(row: Record<string, unknown>): Order {
     deliveryAreaId: String(row.delivery_area_id),
     deliveryAreaName: String(row.delivery_area_name ?? ""),
     deliveryFee: Number(row.delivery_fee ?? 0),
-    items: rawItems.map((item) => ({
+    items: rawItems.map((item, index) => ({
+      lineId: `db-${String(row.id)}-${index}`,
       menuItemId: String(item.menu_item_id),
       name: String(item.name),
+      basePrice: Number(item.price),
       price: Number(item.price),
-      quantity: Number(item.quantity)
+      quantity: Number(item.quantity),
+      addons: []
     })),
     subtotal: Number(row.subtotal ?? 0),
     discount: Number(row.discount ?? 0),

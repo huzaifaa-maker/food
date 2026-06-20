@@ -43,11 +43,21 @@ export type Review = {
   approved: boolean;
 };
 
+export type CartAddon = {
+  id: string;
+  label: string;
+  price: number;
+};
+
 export type CartLine = {
+  lineId: string;
   menuItemId: string;
   name: string;
+  basePrice: number;
   price: number;
   quantity: number;
+  addons: CartAddon[];
+  comment?: string;
 };
 
 export type OrderStatus =
@@ -88,6 +98,10 @@ export type OrderInput = {
   items: Array<{
     menuItemId: string;
     quantity: number;
+    name?: string;
+    price?: number;
+    addons?: CartAddon[];
+    comment?: string;
   }>;
   couponCode?: string;
   paymentMethod: PaymentMethod;

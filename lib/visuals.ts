@@ -6,20 +6,24 @@ const imageRules: Array<[RegExp, string]> = [
   [/zinger booster|solo zinger|buddy deal/i, "/images/menu/zinger-burger.webp"],
   [/shahi|handi|karahi|solo handi|happy family/i, "/images/menu/shahi-handi.webp"],
   [/gola|kabab/i, "/images/menu/gola-kabab.webp"],
-  [/burger/i, "/images/menu/burger-plate.webp"],
   [/wrap|midnight/i, "/images/menu/wrap.webp"],
   [/loaded/i, "/images/menu/loaded-fries.webp"],
-  [/masala fries|fries/i, "/images/menu/masala-fries.webp"],
+  [/masala fries|golden hot/i, "/images/menu/masala-fries.webp"],
   [/chunky|chicken chunk/i, "/images/menu/chunky-chicken.webp"],
-  [/nugget/i, "/images/menu/nuggets.webp"],
+  [/nugget|strip|tempura|injected/i, "/images/menu/nuggets.webp"],
+  [/wing|baked/i, "/images/menu/baked-wings.webp"],
+  [/burger|chapligar|decker/i, "/images/menu/burger-plate.webp"],
+  [/pasta|silky|spicy pasta|crunchy pasta/i, "/images/menu/burger-plate.webp"],
   [/naan/i, "/images/menu/milky-naan.webp"],
-  [/chai/i, "/images/menu/elaichi-chai.webp"]
+  [/chai|doodh patti|tea|ginger tea|cardamom tea/i, "/images/menu/elaichi-chai.webp"]
 ];
 
 const blockedFoodImages = new Set([
   "/images/whatsapp/zaiqa-03.jpg",
   "/images/whatsapp/zaiqa-17.jpg",
-  "/images/whatsapp/zaiqa-20.jpg"
+  "/images/whatsapp/zaiqa-20.jpg",
+  "/images/hero-burger-mobile.webp",
+  "/images/hero-burger-poster.webp"
 ]);
 
 export function resolveMenuImage(item: Pick<MenuItem, "name" | "image">) {
@@ -35,32 +39,10 @@ export function resolveSafeFoodImage(src?: string, fallback = "/images/menu/shah
 }
 
 export const galleryImages = [
-  {
-    src: "/images/menu/eco-crunch.webp",
-    alt: "Crispy burger with fries on a plate"
-  },
-  {
-    src: "/images/menu/zinger-burger.webp",
-    alt: "Signature zinger burger with crisp chicken and sauce"
-  },
-  {
-    src: "/images/menu/shahi-handi.webp",
-    alt: "Fresh shahi handi served hot in a clay bowl"
-  },
-  {
-    src: "/images/menu/loaded-fries.webp",
-    alt: "Loaded fries with grilled chicken and warm cheese sauce"
-  },
-  {
-    src: "/images/menu/wrap.webp",
-    alt: "Crunchy chicken wrap basket with fries and drink"
-  },
-  {
-    src: "/images/menu/chunky-chicken.webp",
-    alt: "Crispy chicken chunks with house dipping sauce"
-  },
-  {
-    src: "/images/menu/elaichi-chai.webp",
-    alt: "Warm elaichi chai served in a cup"
-  }
+  { src: "/images/menu/zinger-burger.webp", alt: "Zinger Booster burger" },
+  { src: "/images/menu/shahi-handi.webp", alt: "Velvety Shahi Handi" },
+  { src: "/images/menu/loaded-fries.webp", alt: "Legend loaded fries" },
+  { src: "/images/menu/double-decker.webp", alt: "Zaiqa Double Decker" },
+  { src: "/images/menu/baked-wings.webp", alt: "Zaiqa baked wings" },
+  { src: "/images/menu/elaichi-chai.webp", alt: "Elaichi chai" }
 ];

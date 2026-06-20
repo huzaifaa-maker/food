@@ -9,19 +9,25 @@ export function buildWhatsAppUrl(message: string) {
   return `https://wa.me/${business.whatsappPhone}?text=${encodeURIComponent(message)}`;
 }
 
-export function buildCartMessage(lines: CartLine[], total?: number) {
-  const itemText = lines
-    .map((line) => `${line.quantity}x ${line.name} (${formatCurrency(line.price * line.quantity)})`)
-    .join("\n");
-  const totalText = typeof total === "number" ? `\nTotal: ${formatCurrency(total)}` : "";
+function formatLineDetail(line: CartLine) {
+  const total = formatCurrency(line.price * line.quantity);
+  const addonText =
+    line.addons.length > 0
+      ? `\n   Add-ons: ${line.addons.map((addon) => addon.label).join(", ")}`
+      : "";
+  const commentText = line.comment ? `\n   Note: ${line.comment}` : "";
+  return `${line.quantity}x ${line.name} (${total})${addonText}${commentText}`;
+}
 
-  return `Assalam o Alaikum Zaiqa Junction, I want to order:\n${itemText}${totalText}`;
+export function buildCartMessage(lines: CartLine[], total?: number) {
+  const itemText = lines.map(formatLineDetail).join("\n\n");
+  const totalText = typeof total === "number" ? `\n\nTotal: ${formatCurrency(total)}` : "";
+
+  return `Assalam o Alaikum Zaiqa Junction, I want to order:\n\n${itemText}${totalText}`;
 }
 
 export function buildOrderConfirmationMessage(order: Order) {
-  const itemText = order.items
-    .map((line) => `${line.quantity}x ${line.name} - ${formatCurrency(line.price * line.quantity)}`)
-    .join("\n");
+  const itemText = order.items.map(formatLineDetail).join("\n\n");
 
   return `Assalam o Alaikum Zaiqa Junction, please confirm my website order ${order.id}.\n\n${itemText}\n\nDelivery: ${order.deliveryAreaName}\nAddress: ${order.address}\nPayment: ${order.paymentMethod.replaceAll("_", " ")}\nTotal: ${formatCurrency(order.total)}`;
 }
