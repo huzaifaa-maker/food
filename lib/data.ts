@@ -47,7 +47,7 @@ export const menuItems: MenuItem[] = [
     slug: "velvety-shahi-handi",
     description: "Creamy homemade chicken handi with Half and Full portion options.",
     price: 1249,
-    image: "/images/menu/shahi-handi.webp",
+    image: "/images/menu/shahi-handi-clean.webp",
     popular: true,
     tags: ["Gravy", "Best seller", "Dinner", "Half / Full"],
     mealTime: "dinner",
@@ -62,7 +62,7 @@ export const menuItems: MenuItem[] = [
     slug: "royal-gola-kabab-half",
     description: "Tender gola kabab in a rich creamy bowl, built for sharing.",
     price: 1299,
-    image: "/images/menu/gola-kabab.webp",
+    image: "/images/menu/gola-kabab-clean.webp",
     popular: false,
     tags: ["Kabab", "Dinner"],
     mealTime: "dinner",
@@ -227,7 +227,7 @@ export const menuItems: MenuItem[] = [
     slug: "solo-handi-deal",
     description: "Quarter handi, two naan, and a buddy drink.",
     price: 649,
-    image: "/images/menu/shahi-handi.webp",
+    image: "/images/menu/shahi-handi-clean.webp",
     popular: true,
     tags: ["Deal", "Solo"],
     mealTime: "dinner",
@@ -257,7 +257,7 @@ export const menuItems: MenuItem[] = [
     slug: "happy-family-deal",
     description: "Half Shahi Handi, half Royal Gola Kabab, six milky naan, and 1.5L drink.",
     price: 2899,
-    image: "/images/menu/shahi-handi.webp",
+    image: "/images/menu/shahi-handi-clean.webp",
     popular: true,
     tags: ["Family", "Bundle"],
     mealTime: "dinner",
@@ -329,16 +329,16 @@ export const menuItems: MenuItem[] = [
 
 export const deliveryAreas: DeliveryArea[] = [
   {
-    id: "shah-shams",
-    name: "Shah Shams / Gulgasht / Nearby",
+    id: "near-kitchen",
+    name: "Near kitchen / Shah Rukn E Alam",
     fee: 80,
     eta: "20-30 min",
     minimumOrder: 499,
     active: true
   },
   {
-    id: "city-housing",
-    name: "City Housing / Bosan Road",
+    id: "gulgasht-bosan",
+    name: "Gulgasht / Bosan Road",
     fee: 120,
     eta: "30-40 min",
     minimumOrder: 599,
@@ -361,8 +361,16 @@ export const deliveryAreas: DeliveryArea[] = [
     active: true
   },
   {
+    id: "other-area",
+    name: "Other Multan area - confirm on WhatsApp",
+    fee: 0,
+    eta: "Delivery fee confirmed on WhatsApp",
+    minimumOrder: 0,
+    active: true
+  },
+  {
     id: "pickup",
-    name: "Pickup — Shah Shams Kitchen",
+    name: "Pickup - Zaiqa Junction With Zahra's",
     fee: 0,
     eta: "Ready in 20-30 min",
     minimumOrder: 0,
@@ -377,7 +385,7 @@ export const reviews: Review[] = [
     rating: 5,
     quote: "The Shahi Handi tasted homemade but packed like a premium order. Naan arrived soft and warm.",
     source: "WhatsApp",
-    image: "/images/menu/shahi-handi.webp",
+    image: "/images/menu/shahi-handi-clean.webp",
     createdAt: "2026-05-29T18:45:00.000Z",
     approved: true
   },
@@ -397,7 +405,7 @@ export const reviews: Review[] = [
     rating: 5,
     quote: "Family deal was enough for everyone and the gravy had that fresh kitchen flavor.",
     source: "Foodpanda",
-    image: "/images/menu/shahi-handi.webp",
+    image: "/images/menu/shahi-handi-clean.webp",
     createdAt: "2026-06-02T20:18:00.000Z",
     approved: true
   },
@@ -418,9 +426,9 @@ export const seedOrders: Order[] = [
     id: "ZQ-DEMO-101",
     customerName: "Demo Customer",
     phone: "0312-0000000",
-    address: "Gulgasht Colony, Multan",
-    deliveryAreaId: "nearby",
-    deliveryAreaName: "Nearby Home Delivery Zone",
+    address: "Shah Rukn E Alam Town, Multan",
+    deliveryAreaId: "near-kitchen",
+    deliveryAreaName: "Near kitchen / Shah Rukn E Alam",
     deliveryFee: 120,
     items: [
       {

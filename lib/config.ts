@@ -1,22 +1,26 @@
 export const business = {
   name: "Zaiqa Junction",
-  tagline: "Homemade Pakistani comfort food, delivered fresh in Multan",
-  phoneDisplay: "0302-6665620",
-  whatsappPhone: process.env.NEXT_PUBLIC_WHATSAPP_PHONE ?? "923026665620",
+  placeName: "Zaiqa Junction With Zahra's",
+  tagline: "Fast food and homemade Pakistani comfort food, delivered fresh in Multan",
+  phoneDisplay: "+92 317 6802585",
+  whatsappPhone: process.env.NEXT_PUBLIC_WHATSAPP_PHONE ?? "923176802585",
   email: "Umarfarooq5674@gmail.com",
   foodpandaUrl: process.env.NEXT_PUBLIC_FOODPANDA_URL ?? "https://www.foodpanda.pk/",
   googleBusinessUrl:
     process.env.NEXT_PUBLIC_GOOGLE_BUSINESS_URL ?? "https://maps.app.goo.gl/7ood2oRprG9Znf5r9?g_st=aw",
   mapsEmbedUrl:
     process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL ??
-    "https://www.google.com/maps?q=Shah+Shams+Colony+Multan&output=embed",
+    "https://www.google.com/maps?q=Zaiqa+Junction+With+Zahra%27s,+6H32%2B5Q,+Shah+Rukn+E+Alam+Town,+Multan&output=embed",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  hours: "6:00 PM - 2:00 AM",
+  hours: "12:00 PM - 2:00 AM",
   currency: "Rs.",
-  kitchenArea: "Shah Shams Colony, Multan",
+  kitchenArea: "6H32+5Q, Shah Rukn E Alam Town, Multan",
   social: {
-    facebook: "https://www.facebook.com/",
-    instagram: "https://www.instagram.com/"
+    facebook: "https://www.facebook.com/share/1CgKaund7B/",
+    instagram:
+      "https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=mulo5or",
+    tiktok: "https://www.tiktok.com/@zaiqajunction7?_r=1&_t=ZS-97NYbWqTR04",
+    youtube: "https://www.youtube.com/@ZaiqaJunction01"
   },
   logoThumb: "/images/brand/logo-mark.svg",
   logoHorizontal: "/images/brand/logo-horizontal.svg",
@@ -26,14 +30,14 @@ export const business = {
 };
 
 export const chef = {
-  name: "Chef Umar Farooq",
-  title: "Founder & Head Chef",
-  bio: "Umar Farooq runs Zaiqa Junction from Shah Shams, Multan — serving the same handis, burgers, wraps, and chai he cooks for his own family, fresh and hygienic every evening.",
+  name: "Zahra",
+  title: "Founder & Kitchen Lead",
+  bio: "Zahra runs Zaiqa Junction With Zahra's from Shah Rukn E Alam Town, Multan, preparing burgers, handis, wraps, sides, and chai with fresh ingredients and careful packing.",
   image: "/images/menu/kitchen.webp",
   yearsExperience: 8,
   highlights: [
-    "Family recipes refined over years of home cooking",
-    "Small-batch prep in a dedicated home kitchen",
-    "Personally checks packaging before every dispatch"
+    "Fast food favorites with a homemade kitchen touch",
+    "Fresh small-batch prep for direct orders",
+    "Careful packing before every delivery or pickup"
   ]
 };

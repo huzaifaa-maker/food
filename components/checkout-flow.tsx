@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 import { ArrowRight, BadgeCheck, MessageCircle, ShieldCheck, TicketPercent, Truck } from "lucide-react";
@@ -8,7 +9,6 @@ import { useCart } from "@/components/cart-provider";
 import { business } from "@/lib/config";
 import { buildOrderConfirmationMessage, buildWhatsAppUrl, formatCurrency } from "@/lib/format";
 import type { DeliveryArea, Order, PaymentMethod } from "@/lib/types";
-import { DeliveryTracker3D } from "@/components/delivery-tracker-3d";
 
 type CheckoutFlowProps = {
   deliveryAreas: DeliveryArea[];
@@ -22,7 +22,7 @@ const coupons: Record<string, { label: string; minSubtotal: number; discount: (s
 
 export function CheckoutFlow({ deliveryAreas }: CheckoutFlowProps) {
   const { lines, subtotal, clearCart } = useCart();
-  const [deliveryAreaId, setDeliveryAreaId] = useState(deliveryAreas[0]?.id ?? "shah-shams");
+  const [deliveryAreaId, setDeliveryAreaId] = useState(deliveryAreas[0]?.id ?? "near-kitchen");
   const [couponCode, setCouponCode] = useState("ZAIQA15");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cash_on_delivery");
   const [loading, setLoading] = useState(false);
@@ -30,10 +30,17 @@ export function CheckoutFlow({ deliveryAreas }: CheckoutFlowProps) {
   const [order, setOrder] = useState<Order | null>(null);
 
   const selectedArea = deliveryAreas.find((area) => area.id === deliveryAreaId) ?? deliveryAreas[0];
+  const flexibleDelivery = selectedArea?.id === "other-area";
   const normalizedCoupon = couponCode.trim().toUpperCase();
   const coupon = coupons[normalizedCoupon];
   const discount = coupon && subtotal >= coupon.minSubtotal ? coupon.discount(subtotal) : 0;
-  const deliveryFee = selectedArea ? (subtotal >= selectedArea.minimumOrder ? selectedArea.fee : selectedArea.fee + 100) : 0;
+  const deliveryFee = selectedArea
+    ? flexibleDelivery
+      ? 0
+      : subtotal >= selectedArea.minimumOrder
+        ? selectedArea.fee
+        : selectedArea.fee + 100
+    : 0;
   const total = Math.max(0, subtotal - discount + deliveryFee);
 
   const loyaltyPoints = useMemo(() => Math.floor(total / 100), [total]);
@@ -162,11 +169,14 @@ export function CheckoutFlow({ deliveryAreas }: CheckoutFlowProps) {
                   />
                   <span className="block font-black text-charcoal">{area.name}</span>
                   <span className="mt-1 block text-stone-600">
-                    {area.eta} · {formatCurrency(area.fee)}
+                    {area.eta} - {area.id === "other-area" ? "fee confirmed on WhatsApp" : formatCurrency(area.fee)}
                   </span>
                 </label>
               ))}
             </div>
+            <p className="mt-2 text-xs leading-5 text-stone-500">
+              If your area is not listed, choose "Other Multan area" and Zahra's team will confirm delivery on WhatsApp.
+            </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
@@ -201,7 +211,7 @@ export function CheckoutFlow({ deliveryAreas }: CheckoutFlowProps) {
           <div className="rounded-lg bg-cream p-4">
             <Line label="Subtotal" value={formatCurrency(subtotal)} />
             <Line label={`Discount${discount ? ` (${normalizedCoupon})` : ""}`} value={`-${formatCurrency(discount)}`} />
-            <Line label="Delivery" value={formatCurrency(deliveryFee)} />
+            <Line label="Delivery" value={flexibleDelivery ? "Confirm on WhatsApp" : formatCurrency(deliveryFee)} />
             <div className="mt-3 border-t border-stone-200 pt-3">
               <Line label="Total" value={formatCurrency(total)} strong />
             </div>
@@ -240,7 +250,16 @@ function OrderConfirmation({ order }: { order: Order }) {
         <Line label="Loyalty earned" value={`${order.loyaltyPointsEarned} points`} />
       </div>
 
-      <DeliveryTracker3D status={order.status} />
+      <div className="relative mt-6 overflow-hidden rounded-lg border border-stone-200">
+        <Image
+          src="/images/order/order-confirmed.webp"
+          alt="Zaiqa Junction order confirmed banner"
+          width={1200}
+          height={720}
+          className="h-auto w-full object-cover"
+          priority
+        />
+      </div>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         <a href={whatsappUrl} target="_blank" rel="noreferrer" className="btn-primary">

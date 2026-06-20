@@ -29,7 +29,7 @@ export const heroCarouselItems: HeroCarouselItem[] = [
       "Creamy, slow-cooked boneless chicken handi in a rich clay pot style, prepared with fresh cream and mild spices.",
     themeColor: "#D97706",
     watermarkColor: "#B45309",
-    image: "/images/menu/shahi-handi.webp",
+    image: "/images/menu/shahi-handi-clean.webp",
     imageAlt: "Signature Shahi Handi freshly prepared and garnished"
   },
   {

@@ -4,8 +4,8 @@ const imageRules: Array<[RegExp, string]> = [
   [/eco crunch/i, "/images/menu/eco-crunch.webp"],
   [/zaiqa double decker|double decker/i, "/images/menu/double-decker.webp"],
   [/zinger booster|solo zinger|buddy deal/i, "/images/menu/zinger-burger.webp"],
-  [/shahi|handi|karahi|solo handi|happy family/i, "/images/menu/shahi-handi.webp"],
-  [/gola|kabab/i, "/images/menu/gola-kabab.webp"],
+  [/shahi|handi|karahi|solo handi|happy family/i, "/images/menu/shahi-handi-clean.webp"],
+  [/gola|kabab/i, "/images/menu/gola-kabab-clean.webp"],
   [/wrap|midnight/i, "/images/menu/wrap.webp"],
   [/loaded/i, "/images/menu/loaded-fries.webp"],
   [/masala fries|golden hot/i, "/images/menu/masala-fries.webp"],
@@ -33,14 +33,14 @@ export function resolveMenuImage(item: Pick<MenuItem, "name" | "image">) {
   return item.image;
 }
 
-export function resolveSafeFoodImage(src?: string, fallback = "/images/menu/shahi-handi.webp") {
+export function resolveSafeFoodImage(src?: string, fallback = "/images/menu/shahi-handi-clean.webp") {
   if (!src || blockedFoodImages.has(src)) return fallback;
   return src;
 }
 
 export const galleryImages = [
   { src: "/images/menu/zinger-burger.webp", alt: "Zinger Booster burger" },
-  { src: "/images/menu/shahi-handi.webp", alt: "Velvety Shahi Handi" },
+  { src: "/images/menu/shahi-handi-clean.webp", alt: "Velvety Shahi Handi" },
   { src: "/images/menu/loaded-fries.webp", alt: "Legend loaded fries" },
   { src: "/images/menu/double-decker.webp", alt: "Zaiqa Double Decker" },
   { src: "/images/menu/baked-wings.webp", alt: "Zaiqa baked wings" },

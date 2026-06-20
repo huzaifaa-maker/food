@@ -23,11 +23,11 @@ export function buildCartMessage(lines: CartLine[], total?: number) {
   const itemText = lines.map(formatLineDetail).join("\n\n");
   const totalText = typeof total === "number" ? `\n\nTotal: ${formatCurrency(total)}` : "";
 
-  return `Assalam o Alaikum Zaiqa Junction, I want to order:\n\n${itemText}${totalText}`;
+  return `Assalam o Alaikum ${business.name}, I want to order:\n\n${itemText}${totalText}`;
 }
 
 export function buildOrderConfirmationMessage(order: Order) {
   const itemText = order.items.map(formatLineDetail).join("\n\n");
 
-  return `Assalam o Alaikum Zaiqa Junction, please confirm my website order ${order.id}.\n\n${itemText}\n\nDelivery: ${order.deliveryAreaName}\nAddress: ${order.address}\nPayment: ${order.paymentMethod.replaceAll("_", " ")}\nTotal: ${formatCurrency(order.total)}`;
+  return `Assalam o Alaikum ${business.name}, please confirm my website order ${order.id}.\n\n${itemText}\n\nDelivery: ${order.deliveryAreaName}\nAddress: ${order.address}\nPayment: ${order.paymentMethod.replaceAll("_", " ")}\nTotal: ${formatCurrency(order.total)}`;
 }

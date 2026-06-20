@@ -39,7 +39,7 @@ export default function AboutPage() {
         <div className="container-pad grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div className="grid grid-cols-2 gap-3">
             {[
-              "/images/menu/shahi-handi.webp",
+              "/images/menu/shahi-handi-clean.webp",
               "/images/menu/double-decker.webp",
               "/images/menu/masala-fries.webp",
               "/images/menu/wrap.webp"

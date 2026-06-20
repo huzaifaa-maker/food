@@ -100,7 +100,7 @@ export function SiteFooter() {
 
       <div className="border-t border-white/10">
         <div className="container-pad py-4 text-center text-xs text-orange-200">
-          © {year} {business.name}. {chef.name} · Shah Shams, Multan.
+          © {year} {business.name}. {chef.name} · Shah Rukn E Alam Town, Multan.
         </div>
       </div>
     </footer>
