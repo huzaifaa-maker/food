@@ -7,21 +7,32 @@ import { getAddonsForItem, unitPriceWithAddons } from "@/lib/add-ons";
 import { formatCurrency } from "@/lib/format";
 import type { CartAddon } from "@/lib/types";
 
+const handiFullPortionAddon: CartAddon = {
+  id: "full-portion",
+  label: "Full portion",
+  price: 1150
+};
+
 export function AddToCartSheet() {
   const { customizerItem, closeCustomizer, addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const [portion, setPortion] = useState<"half" | "full">("half");
   const [selectedAddons, setSelectedAddons] = useState<CartAddon[]>([]);
   const [comment, setComment] = useState("");
 
   const item = customizerItem;
   const availableAddons = useMemo(() => (item ? getAddonsForItem(item) : []), [item]);
+  const hasPortionChoice = item?.id === "velvety-shahi-handi";
+  const portionAddon = hasPortionChoice && portion === "full" ? handiFullPortionAddon : null;
+  const configuredAddons = portionAddon ? [portionAddon, ...selectedAddons] : selectedAddons;
 
-  const unitPrice = item ? unitPriceWithAddons(item.price, selectedAddons) : 0;
+  const unitPrice = item ? unitPriceWithAddons(item.price, configuredAddons) : 0;
   const lineTotal = unitPrice * quantity;
 
   useEffect(() => {
     if (!item) return;
     setQuantity(1);
+    setPortion("half");
     setSelectedAddons([]);
     setComment("");
     document.body.style.overflow = "hidden";
@@ -44,7 +55,7 @@ export function AddToCartSheet() {
 
   function handleSubmit() {
     if (!item) return;
-    addToCart(item, { quantity, addons: selectedAddons, comment });
+    addToCart(item, { quantity, addons: configuredAddons, comment });
   }
 
   return (
@@ -63,7 +74,10 @@ export function AddToCartSheet() {
             <h2 id="add-to-cart-title" className="mt-1 truncate text-lg font-black text-charcoal">
               {item.name}
             </h2>
-            <p className="mt-1 text-sm text-stone-600">Base {formatCurrency(item.price)}</p>
+            <p className="mt-1 text-sm text-stone-600">
+              {hasPortionChoice ? "Half starts at " : "Base "}
+              {formatCurrency(item.price)}
+            </p>
           </div>
           <button
             type="button"
@@ -76,6 +90,36 @@ export function AddToCartSheet() {
         </div>
 
         <div className="flex-1 space-y-5 overflow-y-auto px-5 py-4">
+          {hasPortionChoice ? (
+            <div>
+              <p className="text-sm font-black text-charcoal">Portion</p>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                {[
+                  { id: "half", label: "Half", price: item.price },
+                  { id: "full", label: "Full", price: item.price + handiFullPortionAddon.price }
+                ].map((option) => {
+                  const active = portion === option.id;
+
+                  return (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => setPortion(option.id as "half" | "full")}
+                      className={`min-h-14 rounded-xl border px-3 py-2 text-left transition active:scale-[0.99] ${
+                        active
+                          ? "border-ember bg-ember/8 ring-1 ring-ember/30"
+                          : "border-stone-200 bg-white"
+                      }`}
+                    >
+                      <span className="block text-sm font-black text-charcoal">{option.label}</span>
+                      <span className="mt-0.5 block text-xs font-bold text-ember">{formatCurrency(option.price)}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
+
           <div>
             <p className="text-sm font-black text-charcoal">Quantity</p>
             <div className="mt-2 inline-flex items-center rounded-xl border border-stone-200 bg-stone-50">
@@ -104,7 +148,7 @@ export function AddToCartSheet() {
           {availableAddons.length > 0 ? (
             <div>
               <p className="text-sm font-black text-charcoal">Add-ons</p>
-              <p className="mt-1 text-xs text-stone-500">Tap to add extras — price updates instantly.</p>
+              <p className="mt-1 text-xs text-stone-500">Tap to add extras - price updates instantly.</p>
               <div className="mt-3 grid gap-2">
                 {availableAddons.map((addon) => {
                   const active = selectedAddons.some((entry) => entry.id === addon.id);

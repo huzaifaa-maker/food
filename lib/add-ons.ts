@@ -9,8 +9,10 @@ export type ItemAddon = {
 };
 
 export const itemAddons: ItemAddon[] = [
-  { id: "extra-patty", label: "Extra chicken patty", price: 120, categories: ["burgers"] },
+  { id: "extra-patty", label: "Extra chicken patty", price: 180, categories: ["burgers"] },
   { id: "cheese-slice", label: "Extra cheese slice", price: 80, categories: ["burgers", "wraps"] },
+  { id: "extra-tomato", label: "Fresh tomato slice", price: 30, categories: ["burgers", "wraps"] },
+  { id: "jalapenos", label: "Jalapenos", price: 50, categories: ["burgers", "wraps", "appetizers"] },
   { id: "buddy-drink", label: "Buddy cold drink", price: 99, categories: ["burgers", "wraps", "appetizers", "deals"] },
   { id: "extra-sauce", label: "Extra house sauce", price: 40, categories: ["burgers", "wraps", "appetizers"] },
   { id: "extra-fries", label: "Side masala fries", price: 199, categories: ["burgers", "wraps", "deals"] },

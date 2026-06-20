@@ -46,7 +46,7 @@ export const menuItems: MenuItem[] = [
     name: "Velvety Shahi Handi",
     slug: "velvety-shahi-handi",
     description: "Creamy homemade chicken handi with Half and Full portion options.",
-    price: 1199,
+    price: 1249,
     image: "/images/menu/shahi-handi.webp",
     popular: true,
     tags: ["Gravy", "Best seller", "Dinner", "Half / Full"],

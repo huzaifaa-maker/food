@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Clock, Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
+import { Clock, Mail, MapPin, MessageCircle, Navigation, Phone, Send } from "lucide-react";
 import { FadeInSection } from "@/components/fade-in-section";
 import { business, chef } from "@/lib/config";
 import { buildWhatsAppUrl, formatCurrency } from "@/lib/format";
@@ -111,9 +111,14 @@ export function ContactDeliverySection({ areas }: ContactDeliverySectionProps) {
           />
         </div>
 
-        <Link href="/order" className="btn-primary mt-6 w-full sm:w-auto">
-          Start order <Send size={18} aria-hidden />
-        </Link>
+        <div className="mt-6 grid gap-2.5 sm:flex sm:flex-wrap">
+          <Link href="/order" className="btn-primary w-full sm:w-auto">
+            Start order <Send size={18} aria-hidden />
+          </Link>
+          <a href={business.googleBusinessUrl} target="_blank" rel="noreferrer" className="btn-secondary w-full sm:w-auto">
+            Open Maps <Navigation size={18} aria-hidden />
+          </a>
+        </div>
       </div>
     </FadeInSection>
   );

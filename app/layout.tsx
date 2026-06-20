@@ -48,10 +48,10 @@ export const metadata: Metadata = {
     siteName: "Zaiqa Junction",
     images: [
       {
-        url: "/images/menu/kitchen.webp",
-        width: 1200,
-        height: 630,
-        alt: "Warm home kitchen at Zaiqa Junction"
+        url: "/images/brand/logo-social.svg",
+        width: 1080,
+        height: 1080,
+        alt: "Zaiqa Junction premium homemade food logo"
       }
     ],
     locale: "en_PK",
@@ -59,6 +59,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: business.siteUrl
+  },
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/images/brand/logo-social.svg"
   }
 };
 

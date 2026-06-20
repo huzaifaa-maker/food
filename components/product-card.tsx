@@ -29,6 +29,8 @@ export function ProductCard({
     return () => media.removeEventListener("change", update);
   }, []);
 
+  const price = formatCurrency(item.price);
+
   return (
     <article className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-soft transition active:scale-[0.99]">
       <div className={compact ? "grid grid-cols-[96px_minmax(0,1fr)]" : ""}>
@@ -50,9 +52,15 @@ export function ProductCard({
 
         <div className={`flex min-w-0 flex-col ${compact ? "gap-2 p-2.5" : "gap-3 p-3.5 sm:p-4"}`}>
           <div className="min-w-0">
-            <div className="flex flex-wrap items-start justify-between gap-x-2 gap-y-1">
-              <h3 className="min-w-0 flex-1 text-[15px] font-bold leading-snug text-charcoal">{item.name}</h3>
-              <p className="shrink-0 whitespace-nowrap text-sm font-black text-ember">{formatCurrency(item.price)}</p>
+            <div className={compact ? "grid min-w-0 gap-1" : "grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-2"}>
+              <h3 className="min-w-0 text-[15px] font-bold leading-snug text-charcoal">{item.name}</h3>
+              <p
+                className={`w-fit max-w-full shrink-0 whitespace-nowrap rounded-full bg-ember/10 px-2 py-0.5 font-black text-ember ${
+                  compact ? "text-[13px]" : "text-sm"
+                }`}
+              >
+                {price}
+              </p>
             </div>
             {!compact ? (
               <p className="mt-1 line-clamp-2 text-sm leading-5 text-stone-600">{item.description}</p>
@@ -103,7 +111,7 @@ export function PopularItemsStrip({ items }: { items: MenuItem[] }) {
         </div>
         <div className="mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {popular.map((item) => (
-            <div key={item.id} className="w-[min(78vw,280px)] shrink-0 snap-start">
+            <div key={item.id} className="w-[min(84vw,300px)] shrink-0 snap-start">
               <ProductCard item={item} compact />
             </div>
           ))}

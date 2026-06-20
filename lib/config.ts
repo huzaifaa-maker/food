@@ -6,7 +6,7 @@ export const business = {
   email: "Umarfarooq5674@gmail.com",
   foodpandaUrl: process.env.NEXT_PUBLIC_FOODPANDA_URL ?? "https://www.foodpanda.pk/",
   googleBusinessUrl:
-    process.env.NEXT_PUBLIC_GOOGLE_BUSINESS_URL ?? "https://www.google.com/search?q=Zaiqa+Junction+Multan",
+    process.env.NEXT_PUBLIC_GOOGLE_BUSINESS_URL ?? "https://maps.app.goo.gl/7ood2oRprG9Znf5r9?g_st=aw",
   mapsEmbedUrl:
     process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL ??
     "https://www.google.com/maps?q=Shah+Shams+Colony+Multan&output=embed",
@@ -18,7 +18,11 @@ export const business = {
     facebook: "https://www.facebook.com/",
     instagram: "https://www.instagram.com/"
   },
-  logoThumb: "/images/brand/logo-thumb.webp"
+  logoThumb: "/images/brand/logo-mark.svg",
+  logoHorizontal: "/images/brand/logo-horizontal.svg",
+  logoMain: "/images/brand/logo-main.svg",
+  logoMono: "/images/brand/logo-mono.svg",
+  logoSocial: "/images/brand/logo-social.svg"
 };
 
 export const chef = {

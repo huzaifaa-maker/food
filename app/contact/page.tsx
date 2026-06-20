@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Clock, MapPin, MessageCircle, Phone, Send, Store } from "lucide-react";
+import { Clock, MapPin, MessageCircle, Navigation, Phone, Send, Store } from "lucide-react";
 import { SectionHeader } from "@/components/section-header";
 import { business } from "@/lib/config";
 import { buildWhatsAppUrl, formatCurrency } from "@/lib/format";
@@ -34,6 +34,7 @@ export default async function ContactPage() {
               [MessageCircle, "WhatsApp", business.phoneDisplay, buildWhatsAppUrl("Assalam o Alaikum Zaiqa Junction, I want to order.")],
               [Phone, "Phone", business.phoneDisplay, `tel:${business.phoneDisplay.replace(/[^0-9+]/g, "")}`],
               [Clock, "Business hours", business.hours, "#hours"],
+              [Navigation, "Kitchen location", business.kitchenArea, business.googleBusinessUrl],
               [Store, "Foodpanda", "Order through Foodpanda", business.foodpandaUrl]
             ] as const).map(([Icon, label, value, href]) => (
               <a

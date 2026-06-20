@@ -8,9 +8,9 @@ import { TestimonialsSection } from "@/components/testimonials-section";
 import { listDeliveryAreas, listMenuItems, listReviews } from "@/lib/store";
 
 export const metadata: Metadata = {
-  title: "Order Fresh Homemade Food — Zaiqa Junction Multan",
+  title: "Order Fresh Homemade Food | Zaiqa Junction Multan",
   description:
-    "Browse burgers, handis, wraps, fries & chai from Zaiqa Junction. Shah Shams, Multan delivery. Order on WhatsApp in under 30 seconds."
+    "Browse burgers, handis, wraps, fries, and chai from Zaiqa Junction. Fresh homemade food from Shah Shams, Multan with direct WhatsApp confirmation."
 };
 
 export default async function HomePage() {
