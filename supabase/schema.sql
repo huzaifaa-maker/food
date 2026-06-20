@@ -43,6 +43,7 @@ create table public.menu_items (
   image_url text not null,
   is_popular boolean not null default false,
   tags text[] not null default '{}',
+  meal_time text check (meal_time in ('breakfast', 'lunch', 'dinner', 'desserts', 'beverages')),
   spice_level text not null default 'medium' check (spice_level in ('mild', 'medium', 'hot')),
   prep_time_minutes integer not null default 20,
   is_available boolean not null default true,

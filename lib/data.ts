@@ -41,31 +41,18 @@ export const categories: Category[] = [
 
 export const menuItems: MenuItem[] = [
   {
-    id: "velvety-shahi-handi-half",
+    id: "velvety-shahi-handi",
     categoryId: "handi-karahi",
-    name: "Velvety Shahi Handi Half",
-    slug: "velvety-shahi-handi-half",
-    description: "Creamy homemade chicken handi with soft spices and fresh garnish.",
+    name: "Velvety Shahi Handi",
+    slug: "velvety-shahi-handi",
+    description: "Creamy homemade chicken handi with Half and Full portion options.",
     price: 1249,
-    image: "/images/whatsapp/zaiqa-17.jpg",
+    image: "/images/menu/shahi-handi.webp",
     popular: true,
-    tags: ["Gravy", "Best seller", "Dinner"],
+    tags: ["Gravy", "Best seller", "Dinner", "Half / Full"],
+    mealTime: "dinner",
     spiceLevel: "medium",
     prepTime: 35,
-    available: true
-  },
-  {
-    id: "velvety-shahi-handi-full",
-    categoryId: "handi-karahi",
-    name: "Velvety Shahi Handi Full",
-    slug: "velvety-shahi-handi-full",
-    description: "A generous family portion of the signature shahi handi.",
-    price: 2399,
-    image: "/images/whatsapp/zaiqa-18.jpg",
-    popular: true,
-    tags: ["Family", "Gravy", "Fresh naan pairing"],
-    spiceLevel: "medium",
-    prepTime: 45,
     available: true
   },
   {
@@ -78,6 +65,7 @@ export const menuItems: MenuItem[] = [
     image: "/images/whatsapp/zaiqa-18.jpg",
     popular: false,
     tags: ["Kabab", "Dinner"],
+    mealTime: "dinner",
     spiceLevel: "medium",
     prepTime: 35,
     available: true
@@ -89,9 +77,10 @@ export const menuItems: MenuItem[] = [
     slug: "zaiqa-eco-crunch",
     description: "Juicy chicken breast with house-made sauce in a toasted bun.",
     price: 329,
-    image: "/images/whatsapp/zaiqa-08.jpg",
+    image: "/images/menu/eco-crunch.webp",
     popular: true,
     tags: ["Burger", "Crunchy", "Quick bite"],
+    mealTime: "lunch",
     spiceLevel: "medium",
     prepTime: 18,
     available: true
@@ -103,9 +92,10 @@ export const menuItems: MenuItem[] = [
     slug: "zinger-booster",
     description: "Crispy zinger chicken, lettuce, and creamy house sauce.",
     price: 349,
-    image: "/images/whatsapp/zaiqa-15.jpg",
+    image: "/images/menu/zinger-burger.webp",
     popular: true,
     tags: ["Zinger", "Best seller"],
+    mealTime: "dinner",
     spiceLevel: "hot",
     prepTime: 20,
     available: true
@@ -117,9 +107,10 @@ export const menuItems: MenuItem[] = [
     slug: "zaiqa-double-decker",
     description: "Two crispy layers with cheese-style sauce and crunchy lettuce.",
     price: 749,
-    image: "/images/whatsapp/zaiqa-03.jpg",
+    image: "/images/menu/double-decker.webp",
     popular: false,
     tags: ["Burger", "Loaded"],
+    mealTime: "dinner",
     spiceLevel: "hot",
     prepTime: 24,
     available: true
@@ -134,6 +125,7 @@ export const menuItems: MenuItem[] = [
     image: "/images/whatsapp/zaiqa-19.jpg",
     popular: false,
     tags: ["Wrap", "Lunch"],
+    mealTime: "lunch",
     spiceLevel: "medium",
     prepTime: 18,
     available: true
@@ -148,6 +140,7 @@ export const menuItems: MenuItem[] = [
     image: "/images/whatsapp/zaiqa-19.jpg",
     popular: true,
     tags: ["Wrap", "Popular", "Midnight"],
+    mealTime: "dinner",
     spiceLevel: "hot",
     prepTime: 22,
     available: true
@@ -162,6 +155,7 @@ export const menuItems: MenuItem[] = [
     image: "/images/whatsapp/zaiqa-12.jpg",
     popular: true,
     tags: ["Appetizer", "Shareable"],
+    mealTime: "lunch",
     spiceLevel: "medium",
     prepTime: 20,
     available: true
@@ -176,6 +170,7 @@ export const menuItems: MenuItem[] = [
     image: "/images/whatsapp/zaiqa-09.jpg",
     popular: false,
     tags: ["Nuggets", "Kids"],
+    mealTime: "lunch",
     spiceLevel: "mild",
     prepTime: 16,
     available: true
@@ -190,6 +185,7 @@ export const menuItems: MenuItem[] = [
     image: "/images/whatsapp/zaiqa-16.jpg",
     popular: true,
     tags: ["Fries", "Spicy", "Snack"],
+    mealTime: "lunch",
     spiceLevel: "hot",
     prepTime: 14,
     available: true
@@ -201,9 +197,10 @@ export const menuItems: MenuItem[] = [
     slug: "legend-loaded-fries",
     description: "Loaded fries layered with sauce, chicken bites, and spice.",
     price: 599,
-    image: "/images/whatsapp/zaiqa-01.jpg",
+    image: "/images/menu/loaded-fries.webp",
     popular: true,
     tags: ["Loaded", "Best seller"],
+    mealTime: "lunch",
     spiceLevel: "hot",
     prepTime: 18,
     available: true
@@ -215,9 +212,10 @@ export const menuItems: MenuItem[] = [
     slug: "solo-handi-deal",
     description: "Quarter handi, two naan, and a buddy drink.",
     price: 699,
-    image: "/images/whatsapp/zaiqa-20.jpg",
+    image: "/images/menu/shahi-handi.webp",
     popular: true,
     tags: ["Deal", "Solo"],
+    mealTime: "dinner",
     spiceLevel: "medium",
     prepTime: 32,
     available: true
@@ -229,9 +227,10 @@ export const menuItems: MenuItem[] = [
     slug: "solo-zinger-deal",
     description: "One Zinger Booster with half fries and drink.",
     price: 599,
-    image: "/images/whatsapp/zaiqa-03.jpg",
+    image: "/images/menu/zinger-burger.webp",
     popular: true,
     tags: ["Deal", "Burger"],
+    mealTime: "dinner",
     spiceLevel: "hot",
     prepTime: 22,
     available: true
@@ -243,9 +242,10 @@ export const menuItems: MenuItem[] = [
     slug: "happy-family-deal",
     description: "Half Shahi Handi, half Royal Gola Kabab, six milky naan, and 1.5L drink.",
     price: 2999,
-    image: "/images/whatsapp/zaiqa-20.jpg",
+    image: "/images/menu/shahi-handi.webp",
     popular: true,
     tags: ["Family", "Bundle"],
+    mealTime: "dinner",
     spiceLevel: "medium",
     prepTime: 48,
     available: true
@@ -257,9 +257,10 @@ export const menuItems: MenuItem[] = [
     slug: "buddy-deal",
     description: "Two Zinger Boosters, golden hot masala fries half, and buddy drinks.",
     price: 999,
-    image: "/images/whatsapp/zaiqa-03.jpg",
+    image: "/images/menu/zinger-burger.webp",
     popular: false,
     tags: ["Deal", "Two people"],
+    mealTime: "dinner",
     spiceLevel: "hot",
     prepTime: 28,
     available: true
@@ -274,6 +275,7 @@ export const menuItems: MenuItem[] = [
     image: "/images/whatsapp/zaiqa-19.jpg",
     popular: false,
     tags: ["Midnight", "Shareable"],
+    mealTime: "dinner",
     spiceLevel: "medium",
     prepTime: 24,
     available: true
@@ -288,6 +290,7 @@ export const menuItems: MenuItem[] = [
     image: "/images/whatsapp/zaiqa-18.jpg",
     popular: false,
     tags: ["Bread", "Add-on"],
+    mealTime: "dinner",
     spiceLevel: "mild",
     prepTime: 8,
     available: true
@@ -302,6 +305,7 @@ export const menuItems: MenuItem[] = [
     image: "/images/whatsapp/zaiqa-05.jpg",
     popular: false,
     tags: ["Chai", "Drink"],
+    mealTime: "beverages",
     spiceLevel: "mild",
     prepTime: 10,
     available: true
@@ -350,7 +354,7 @@ export const reviews: Review[] = [
     rating: 5,
     quote: "The Shahi Handi tasted homemade but packed like a premium order. Naan arrived soft and warm.",
     source: "WhatsApp",
-    image: "/images/whatsapp/zaiqa-17.jpg",
+    image: "/images/menu/shahi-handi.webp",
     createdAt: "2026-05-29T18:45:00.000Z",
     approved: true
   },
@@ -370,7 +374,7 @@ export const reviews: Review[] = [
     rating: 5,
     quote: "Family deal was enough for everyone and the gravy had that fresh kitchen flavor.",
     source: "Foodpanda",
-    image: "/images/whatsapp/zaiqa-20.jpg",
+    image: "/images/menu/shahi-handi.webp",
     createdAt: "2026-06-02T20:18:00.000Z",
     approved: true
   },

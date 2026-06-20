@@ -24,8 +24,8 @@ export default function AboutPage() {
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
             <Image
-              src="/images/whatsapp/zaiqa-17.jpg"
-              alt="Fresh homemade handi preparation"
+              src="/images/menu/kitchen.webp"
+              alt="Warm home kitchen with spices and cooking tools"
               fill
               sizes="(min-width: 1024px) 420px, 92vw"
               className="object-cover"
@@ -39,10 +39,10 @@ export default function AboutPage() {
         <div className="container-pad grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div className="grid grid-cols-2 gap-3">
             {[
-              "/images/whatsapp/zaiqa-18.jpg",
-              "/images/whatsapp/zaiqa-15.jpg",
-              "/images/whatsapp/zaiqa-16.jpg",
-              "/images/whatsapp/zaiqa-19.jpg"
+              "/images/menu/shahi-handi.webp",
+              "/images/menu/double-decker.webp",
+              "/images/menu/masala-fries.webp",
+              "/images/menu/wrap.webp"
             ].map((src) => (
               <div key={src} className="relative aspect-square overflow-hidden rounded-lg bg-white">
                 <Image src={src} alt="Zaiqa Junction food preparation" fill sizes="45vw" className="object-cover" />

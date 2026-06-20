@@ -92,7 +92,7 @@ export function AdminDashboard({
       categoryId: String(form.get("categoryId") ?? "appetizers"),
       price: Number(form.get("price") ?? 0),
       description: String(form.get("description") ?? ""),
-      image: "/images/whatsapp/zaiqa-03.jpg",
+      image: "/images/menu/zinger-burger.webp",
       popular: Boolean(form.get("popular")),
       tags: ["Admin"],
       spiceLevel: "medium",

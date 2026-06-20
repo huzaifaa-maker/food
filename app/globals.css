@@ -16,13 +16,19 @@ html {
 
 body {
   margin: 0;
-  background: #fffaf2;
-  color: #181411;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  min-height: 100vh;
+  background: #f8f4ed;
+  color: #0f0f0f;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  position: relative;
 }
 
 img {
   max-width: 100%;
+}
+
+video {
+  max-width: none;
 }
 
 @layer components {
@@ -31,15 +37,18 @@ img {
   }
 
   .btn-primary {
-    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-ember px-5 py-3 text-sm font-black text-white transition hover:bg-chilli focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2;
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-ember px-5 py-3 text-sm font-black text-[#0F0F0F] shadow-glow transition hover:bg-[#ff9451] hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-amber focus:ring-offset-2;
   }
 
   .btn-secondary {
-    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-charcoal/15 bg-white px-5 py-3 text-sm font-black text-charcoal transition hover:border-ember hover:text-ember focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2;
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-black text-charcoal shadow-soft transition hover:border-ember hover:text-ember hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2 focus:ring-offset-cream;
   }
 
   .surface {
-    @apply rounded-lg border border-stone-200 bg-white shadow-sm;
+    @apply rounded-2xl shadow-soft;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(24, 20, 17, 0.06) !important;
   }
 
   .premium-hero {
@@ -358,6 +367,31 @@ img {
   .text-balance {
     text-wrap: balance;
   }
+
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
+  }
+
+  .fade-in-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .fade-in-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 @keyframes premium-plate-float {
@@ -626,4 +660,66 @@ img {
     0 15px 30px -10px rgba(217, 119, 6, 0.15),
     0 0 40px rgba(24, 20, 17, 0.35);
 }
+
+/* Live Cooking Simulator Animations */
+@keyframes audio-wave {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+.animate-audio-wave {
+  animation: audio-wave 0.5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes pot-vibe-slow {
+  0%, 100% { transform: translate3d(-50%, 0, 0) rotate(0deg); }
+  25% { transform: translate3d(-50.5%, -0.5px, 0.2px) rotate(0.4deg); }
+  75% { transform: translate3d(-49.5%, 0.5px, -0.2px) rotate(-0.4deg); }
+}
+
+@keyframes pot-vibe-fast {
+  0%, 100% { transform: translate3d(-50%, 0, 0) rotate(0deg); }
+  20% { transform: translate3d(-51%, -1px, 0.5px) rotate(1deg); }
+  40% { transform: translate3d(-49%, 1px, -0.5px) rotate(-1deg); }
+  60% { transform: translate3d(-50.5%, -0.5px, 0.2px) rotate(0.6deg); }
+  80% { transform: translate3d(-49.5%, 0.5px, -0.2px) rotate(-0.6deg); }
+}
+
+.animate-pot-vibe-slow {
+  animation: pot-vibe-slow 0.4s ease-in-out infinite;
+}
+
+.animate-pot-vibe-fast {
+  animation: pot-vibe-fast 0.15s linear infinite;
+}
+
+/* Tossing Ingredients Animations */
+@keyframes toss-1 {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(10px, -60px, 40px) rotate(180deg); }
+}
+@keyframes toss-2 {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(-15px, -80px, 30px) rotate(-140deg); }
+}
+@keyframes toss-3 {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(5px, -70px, 50px) rotate(220deg); }
+}
+@keyframes toss-4 {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(-8px, -50px, 20px) rotate(90deg); }
+}
+@keyframes toss-5 {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(12px, -75px, 35px) rotate(-180deg); }
+}
+
+.animate-toss-1 { animation: toss-1 1.8s ease-in-out infinite; transform-style: preserve-3d; }
+.animate-toss-2 { animation: toss-2 1.8s ease-in-out infinite; transform-style: preserve-3d; }
+.animate-toss-3 { animation: toss-3 1.8s ease-in-out infinite; transform-style: preserve-3d; }
+.animate-toss-4 { animation: toss-4 1.8s ease-in-out infinite; transform-style: preserve-3d; }
+.animate-toss-5 { animation: toss-5 1.8s ease-in-out infinite; transform-style: preserve-3d; }
+
 

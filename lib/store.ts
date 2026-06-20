@@ -39,7 +39,7 @@ export async function createMenuItem(item: Partial<MenuItem>) {
     slug: item.slug ?? (item.name ?? "new-menu-item").toLowerCase().replace(/[^a-z0-9]+/g, "-"),
     description: item.description ?? "Freshly prepared item from the Zaiqa kitchen.",
     price: Number(item.price ?? 0),
-    image: item.image ?? "/images/whatsapp/zaiqa-03.jpg",
+    image: item.image ?? "/images/menu/zinger-burger.webp",
     popular: Boolean(item.popular),
     tags: item.tags ?? ["New"],
     spiceLevel: item.spiceLevel ?? "medium",
@@ -249,9 +249,10 @@ function fromDbMenuItem(row: Record<string, unknown>): MenuItem {
     slug: String(row.slug),
     description: String(row.description ?? ""),
     price: Number(row.price ?? 0),
-    image: String(row.image_url ?? "/images/whatsapp/zaiqa-03.jpg"),
+    image: String(row.image_url ?? "/images/menu/zinger-burger.webp"),
     popular: Boolean(row.is_popular),
     tags: Array.isArray(row.tags) ? (row.tags as string[]) : [],
+    mealTime: row.meal_time ? (row.meal_time as MenuItem["mealTime"]) : undefined,
     spiceLevel: (row.spice_level as MenuItem["spiceLevel"]) ?? "medium",
     prepTime: Number(row.prep_time_minutes ?? 20),
     available: Boolean(row.is_available ?? true)
@@ -269,6 +270,7 @@ function toDbMenuItem(item: MenuItem) {
     image_url: item.image,
     is_popular: item.popular,
     tags: item.tags,
+    meal_time: item.mealTime ?? null,
     spice_level: item.spiceLevel,
     prep_time_minutes: item.prepTime,
     is_available: item.available

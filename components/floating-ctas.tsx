@@ -13,11 +13,11 @@ export function FloatingCtas() {
     : "Assalam o Alaikum Zaiqa Junction, I want to place an order.";
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white/95 px-3 py-3 shadow-[0_-8px_24px_rgba(0,0,0,0.10)] backdrop-blur md:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-cream/10 bg-charcoal/88 px-3 py-3 shadow-[0_-12px_34px_rgba(0,0,0,0.34)] backdrop-blur-xl md:hidden">
       <div className="mx-auto grid max-w-md grid-cols-[1fr_48px] gap-2">
         <Link
           href="/order"
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-ember px-4 text-sm font-black text-white"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-ember px-4 text-sm font-black text-white shadow-glow"
         >
           <ShoppingBag size={18} />
           Order Now {itemCount > 0 ? `(${itemCount})` : ""}
@@ -27,7 +27,7 @@ export function FloatingCtas() {
           target="_blank"
           rel="noreferrer"
           aria-label={`WhatsApp ${business.name}`}
-          className="inline-flex min-h-12 items-center justify-center rounded-md bg-coriander text-white"
+          className="inline-flex min-h-12 items-center justify-center rounded-md border border-cream/12 bg-coriander text-white"
         >
           <MessageCircle size={20} />
         </a>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { FullMenuPhotoSection } from "@/components/full-menu-photo-section";
 import { MenuBrowser } from "@/components/menu-browser";
 import { SectionHeader } from "@/components/section-header";
 import { categories } from "@/lib/data";
@@ -28,8 +29,8 @@ export default async function MenuPage() {
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
             <Image
-              src="/images/whatsapp/zaiqa-20.jpg"
-              alt="Zaiqa Junction printed menu and deals"
+              src="/images/menu/zinger-burger.webp"
+              alt="Signature Zinger Booster burger from Zaiqa Junction"
               fill
               sizes="(min-width: 1024px) 420px, 92vw"
               className="object-cover"
@@ -44,13 +45,14 @@ export default async function MenuPage() {
           <SectionHeader
             eyebrow="Order online"
             title="Full menu with popular items highlighted"
-            description="Search across names, descriptions, and tags, then filter by category, price, spice, or family-friendly deals."
+            description="Search across dishes, prices, spice levels, and family-friendly deals with clean dish photos instead of a flyer menu."
           />
           <div className="mt-8">
             <MenuBrowser categories={categories} items={items} />
           </div>
         </div>
       </section>
+      <FullMenuPhotoSection />
     </>
   );
 }

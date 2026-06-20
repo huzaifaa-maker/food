@@ -6,6 +6,7 @@ import type { CSSProperties, PointerEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, MessageCircle, ShoppingBag } from "lucide-react";
 import { buildWhatsAppUrl } from "@/lib/format";
+import { ExplodedBurger3D } from "@/components/exploded-burger-3d";
 
 type HeroCarouselItem = {
   id: string;
@@ -28,7 +29,7 @@ export const heroCarouselItems: HeroCarouselItem[] = [
       "Creamy, slow-cooked boneless chicken handi in a rich clay pot style, prepared with fresh cream and mild spices.",
     themeColor: "#D97706",
     watermarkColor: "#B45309",
-    image: "/images/whatsapp/zaiqa-17.jpg",
+    image: "/images/menu/shahi-handi.webp",
     imageAlt: "Signature Shahi Handi freshly prepared and garnished"
   },
   {
@@ -39,7 +40,7 @@ export const heroCarouselItems: HeroCarouselItem[] = [
       "Extra-crispy zinger chicken breast layered with crunchy lettuce, cheddar cheese, and house sauce in toasted sesame buns.",
     themeColor: "#DC2626",
     watermarkColor: "#991B1B",
-    image: "/images/whatsapp/zaiqa-15.jpg",
+    image: "/images/menu/zinger-burger.webp",
     imageAlt: "Fiery crispy Zinger Booster burger with premium buns"
   },
   {
@@ -50,7 +51,7 @@ export const heroCarouselItems: HeroCarouselItem[] = [
       "Crispy golden fries loaded with double sauce layers, seasoned chunks of grilled chicken, and spicy jalapenos.",
     themeColor: "#EA580C",
     watermarkColor: "#C2410C",
-    image: "/images/whatsapp/zaiqa-01.jpg",
+    image: "/images/menu/loaded-fries.webp",
     imageAlt: "The Legend Loaded Fries bowl with chicken chunks and sauce"
   }
 ];
@@ -181,36 +182,49 @@ export function HeroCarousel3D() {
           </button>
 
           <div className="premium-hero__stage" aria-live="polite">
-            {heroCarouselItems.map((item, index) => (
-              <article
-                key={item.id}
-                className={`premium-hero__product is-${getPosition(index)}`}
-                aria-hidden={index !== activeIndex}
-              >
-                {/* 3D Depth Shadow behind the plate */}
-                <div className="premium-hero__plate-shadow" />
+            {heroCarouselItems.map((item, index) => {
+              const position = getPosition(index);
+              const isActive = position === "active";
 
-                <div className="premium-hero__plate">
-                  {/* Plate rim highlight */}
-                  <div className="premium-hero__plate-rim" />
+              return (
+                <article
+                  key={item.id}
+                  className={`premium-hero__product is-${position}`}
+                  aria-hidden={index !== activeIndex}
+                >
+                  {item.id === "zinger-booster" && isActive ? (
+                    <div className="flex items-center justify-center h-full w-full transform-style-3d">
+                      <ExplodedBurger3D />
+                    </div>
+                  ) : (
+                    <>
+                      {/* 3D Depth Shadow behind the plate */}
+                      <div className="premium-hero__plate-shadow" />
 
-                  {/* Food Image wrapped */}
-                  <div className="premium-hero__image-wrap">
-                    <Image
-                      src={item.image}
-                      alt={item.imageAlt}
-                      fill
-                      priority={index === 0}
-                      sizes="(min-width: 1024px) 42vw, 82vw"
-                      className="premium-hero__image"
-                    />
-                  </div>
+                      <div className="premium-hero__plate">
+                        {/* Plate rim highlight */}
+                        <div className="premium-hero__plate-rim" />
 
-                  {/* Glassy reflection sheen */}
-                  <div className="premium-hero__plate-sheen" />
-                </div>
-              </article>
-            ))}
+                        {/* Food Image wrapped */}
+                        <div className="premium-hero__image-wrap">
+                          <Image
+                            src={item.image}
+                            alt={item.imageAlt}
+                            fill
+                            priority={index === 0}
+                            sizes="(min-width: 1024px) 42vw, 82vw"
+                            className="premium-hero__image"
+                          />
+                        </div>
+
+                        {/* Glassy reflection sheen */}
+                        <div className="premium-hero__plate-sheen" />
+                      </div>
+                    </>
+                  )}
+                </article>
+              );
+            })}
           </div>
 
           <button

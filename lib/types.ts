@@ -5,6 +5,8 @@ export type Category = {
   description: string;
 };
 
+export type MealTime = "breakfast" | "lunch" | "dinner" | "desserts" | "beverages";
+
 export type MenuItem = {
   id: string;
   categoryId: string;
@@ -15,6 +17,7 @@ export type MenuItem = {
   image: string;
   popular?: boolean;
   tags: string[];
+  mealTime?: MealTime;
   spiceLevel: "mild" | "medium" | "hot";
   prepTime: number;
   available: boolean;

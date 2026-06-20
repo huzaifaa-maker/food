@@ -4,6 +4,7 @@ import { Star } from "lucide-react";
 import { ReviewForm } from "@/components/review-form";
 import { SectionHeader } from "@/components/section-header";
 import { listReviews } from "@/lib/store";
+import { galleryImages, resolveSafeFoodImage } from "@/lib/visuals";
 
 export const metadata: Metadata = {
   title: "Customer Reviews",
@@ -46,7 +47,13 @@ export default async function ReviewsPage() {
                 <article key={review.id} className="surface overflow-hidden">
                   {review.image ? (
                     <div className="relative aspect-[16/10]">
-                      <Image src={review.image} alt={`${review.name} review food photo`} fill sizes="45vw" className="object-cover" />
+                      <Image
+                        src={resolveSafeFoodImage(review.image)}
+                        alt={`${review.name} review food photo`}
+                        fill
+                        sizes="45vw"
+                        className="object-cover"
+                      />
                     </div>
                   ) : null}
                   <div className="p-5">
@@ -79,16 +86,9 @@ export default async function ReviewsPage() {
             description="Gallery proof is especially valuable for home-based kitchens because it shows actual packaging, portion size, and food finish."
           />
           <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            {[
-              "/images/whatsapp/zaiqa-01.jpg",
-              "/images/whatsapp/zaiqa-08.jpg",
-              "/images/whatsapp/zaiqa-10.jpg",
-              "/images/whatsapp/zaiqa-12.jpg",
-              "/images/whatsapp/zaiqa-15.jpg",
-              "/images/whatsapp/zaiqa-17.jpg"
-            ].map((src) => (
-              <div key={src} className="relative aspect-square overflow-hidden rounded-lg">
-                <Image src={src} alt="Zaiqa Junction review gallery" fill sizes="18vw" className="object-cover" />
+            {galleryImages.map((image) => (
+              <div key={image.src} className="relative aspect-square overflow-hidden rounded-lg">
+                <Image src={image.src} alt={image.alt} fill sizes="18vw" className="object-cover" />
               </div>
             ))}
           </div>
