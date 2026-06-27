@@ -7,12 +7,22 @@ export type Category = {
 
 export type MealTime = "breakfast" | "lunch" | "dinner" | "desserts" | "beverages";
 
+export type MenuOption = {
+  id: string;
+  label: string;
+  /** Absolute price for this option */
+  price: number;
+  /** Optional helper badge (e.g. "3 pcs") */
+  hintLabel?: string;
+};
+
 export type MenuItem = {
   id: string;
   categoryId: string;
   name: string;
   slug: string;
   description: string;
+  /** Base price used on main card (should be the lowest option price when options exist) */
   price: number;
   image: string;
   popular?: boolean;
@@ -21,7 +31,23 @@ export type MenuItem = {
   spiceLevel: "mild" | "medium" | "hot";
   prepTime: number;
   available: boolean;
+  variantLabel?: string;
+
+  /** Badge text shown on main page (e.g. "3-6-12 pcs" or "Half / Full" or "4-8 pcs") */
+  optionsHint?: string;
+  /** When set, modal shows these options and updates price dynamically */
+  options?: MenuOption[];
+
+  /** Deal-only fields */
+  handi_quantity?: number;
+  handi_size?: string;
+  appetizer_count?: number;
+  appetizer_types?: string[];
+  naan_quantity?: number;
+  drink_volume_liters?: number;
+  free_items?: string[];
 };
+
 
 export type DeliveryArea = {
   id: string;

@@ -7,39 +7,43 @@ import { getAddonsForItem, unitPriceWithAddons } from "@/lib/add-ons";
 import { formatCurrency } from "@/lib/format";
 import type { CartAddon } from "@/lib/types";
 
-const handiFullPortionAddon: CartAddon = {
-  id: "full-portion",
-  label: "Full portion",
-  price: 1150
-};
-
 export function AddToCartSheet() {
   const { customizerItem, closeCustomizer, addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
-  const [portion, setPortion] = useState<"half" | "full">("half");
+  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [selectedAddons, setSelectedAddons] = useState<CartAddon[]>([]);
   const [comment, setComment] = useState("");
 
   const item = customizerItem;
   const availableAddons = useMemo(() => (item ? getAddonsForItem(item) : []), [item]);
-  const hasPortionChoice = item?.id === "velvety-shahi-handi";
-  const portionAddon = hasPortionChoice && portion === "full" ? handiFullPortionAddon : null;
-  const configuredAddons = portionAddon ? [portionAddon, ...selectedAddons] : selectedAddons;
 
-  const unitPrice = item ? unitPriceWithAddons(item.price, configuredAddons) : 0;
+  const options = (item as any)?.options ?? null;
+  const hasOptions = Boolean(options?.length);
+
+  const effectiveOptionPrice = useMemo(() => {
+    if (!item) return 0;
+    if (!hasOptions) return item.price;
+
+    const selected = options!.find((opt: { id: string }) => opt.id === selectedOptionId) ?? options![0];
+    return selected.price;
+  }, [hasOptions, item, options, selectedOptionId]);
+
+  const configuredAddons = selectedAddons;
+
+  const unitPrice = item ? unitPriceWithAddons(effectiveOptionPrice, configuredAddons) : 0;
   const lineTotal = unitPrice * quantity;
 
   useEffect(() => {
     if (!item) return;
     setQuantity(1);
-    setPortion("half");
+    setSelectedOptionId(options?.[0]?.id ?? null);
     setSelectedAddons([]);
     setComment("");
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [item]);
+  }, [item, options]);
 
   if (!item) return null;
 
@@ -59,7 +63,12 @@ export function AddToCartSheet() {
   }
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-end justify-center sm:items-center sm:p-4" role="dialog" aria-modal="true" aria-labelledby="add-to-cart-title">
+    <div
+      className="fixed inset-0 z-[70] flex items-end justify-center sm:items-center sm:p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="add-to-cart-title"
+    >
       <button
         type="button"
         className="absolute inset-0 bg-charcoal/55 backdrop-blur-[2px]"
@@ -75,8 +84,8 @@ export function AddToCartSheet() {
               {item.name}
             </h2>
             <p className="mt-1 text-sm text-stone-600">
-              {hasPortionChoice ? "Half starts at " : "Base "}
-              {formatCurrency(item.price)}
+              {hasOptions ? "Base starts at " : "Base "}
+              {formatCurrency(hasOptions ? effectiveOptionPrice : item.price)}
             </p>
           </div>
           <button
@@ -90,29 +99,26 @@ export function AddToCartSheet() {
         </div>
 
         <div className="flex-1 space-y-5 overflow-y-auto px-5 py-4">
-          {hasPortionChoice ? (
+          {hasOptions ? (
             <div>
-              <p className="text-sm font-black text-charcoal">Portion</p>
+              <p className="text-sm font-black text-charcoal">Options</p>
+              <p className="mt-1 text-xs text-stone-500">Select your preferred portion/size.</p>
               <div className="mt-2 grid grid-cols-2 gap-2">
-                {[
-                  { id: "half", label: "Half", price: item.price },
-                  { id: "full", label: "Full", price: item.price + handiFullPortionAddon.price }
-                ].map((option) => {
-                  const active = portion === option.id;
-
+                {(options as any[]).map((opt) => {
+                  const active = opt.id === selectedOptionId;
                   return (
                     <button
-                      key={option.id}
+                      key={String(opt.id)}
                       type="button"
-                      onClick={() => setPortion(option.id as "half" | "full")}
+                      onClick={() => setSelectedOptionId(String(opt.id))}
                       className={`min-h-14 rounded-xl border px-3 py-2 text-left transition active:scale-[0.99] ${
                         active
                           ? "border-ember bg-ember/8 ring-1 ring-ember/30"
                           : "border-stone-200 bg-white"
                       }`}
                     >
-                      <span className="block text-sm font-black text-charcoal">{option.label}</span>
-                      <span className="mt-0.5 block text-xs font-bold text-ember">{formatCurrency(option.price)}</span>
+                      <span className="block text-sm font-black text-charcoal">{String(opt.label)}</span>
+                      <span className="mt-0.5 block text-xs font-bold text-ember">{formatCurrency(Number(opt.price))}</span>
                     </button>
                   );
                 })}
@@ -189,10 +195,7 @@ export function AddToCartSheet() {
           </div>
         </div>
 
-        <div
-          className="border-t border-stone-100 bg-cream/60 px-5 py-4"
-          style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
-        >
+        <div className="border-t border-stone-100 bg-cream/60 px-5 py-4" style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}>
           <div className="mb-3 flex items-center justify-between text-sm">
             <span className="font-bold text-stone-600">Line total</span>
             <span className="text-lg font-black text-charcoal">{formatCurrency(lineTotal)}</span>
@@ -205,3 +208,4 @@ export function AddToCartSheet() {
     </div>
   );
 }
+
