@@ -21,6 +21,10 @@ export function ProductCard({
   const [isMobile, setIsMobile] = useState(false);
   const image = resolveMenuImage(item);
   const compact = compactProp ?? isMobile;
+  const isDeal = item.categoryId === "deals";
+  const isDrink = item.id === "drink-350ml";
+  const imageWrapperClass = `relative shrink-0 overflow-hidden ${compact ? "h-[96px]" : isDeal ? "aspect-[5/3] bg-cream/10" : "aspect-[4/3]"} ${isDrink ? "bg-[#ffd15a]" : ""}`;
+  const imageClass = (isDeal && !compact) || isDrink ? "object-contain object-center" : "object-cover";
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
@@ -29,8 +33,6 @@ export function ProductCard({
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
   }, []);
-
-  const isDeal = item.categoryId === "deals";
 
   const basePrice = item.options?.length
     ? Math.min(...item.options.map((o) => o.price))
@@ -43,24 +45,25 @@ export function ProductCard({
   const handiBadge = isDeal && typeof item.handi_quantity === "number";
   const appetizerBadge = isDeal && typeof item.appetizer_count === "number";
   const naanBadge = isDeal && typeof item.naan_quantity === "number";
-  const drinkBadge = isDeal && typeof item.drink_volume_liters === "number";
+  const drinkBadge = isDeal && typeof item.drink_volume_ml === "number";
 
   return (
     <>
       <article className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-soft transition active:scale-[0.99]">
         <div className={compact ? "grid grid-cols-[96px_minmax(0,1fr)]" : ""}>
-          <div className={`relative shrink-0 ${compact ? "h-[96px]" : "aspect-[4/3]"}`}>
+          <div className={imageWrapperClass}>
             <Image
               src={image}
               alt={item.name}
               fill
               sizes={compact ? "96px" : "(min-width: 1024px) 25vw, 92vw"}
-              className="object-cover"
+              className={imageClass}
+              style={isDrink ? { objectFit: "contain", objectPosition: "center" } : undefined}
               loading="lazy"
             />
             {item.popular ? (
               <span className="absolute left-1.5 top-1.5 inline-flex items-center gap-0.5 rounded-full bg-chilli px-1.5 py-0.5 text-[9px] font-bold uppercase text-white">
-                <Star size={9} fill="currentColor" aria-hidden /> Hot
+                <Star size={9} fill="currentColor" aria-hidden /> Popular
               </span>
             ) : null}
           </div>
@@ -80,6 +83,12 @@ export function ProductCard({
 
               {!compact ? (
                 <p className="mt-1 line-clamp-2 text-sm leading-5 text-stone-600">{item.description}</p>
+              ) : null}
+
+              {item.variantLabel ? (
+                <span className="mt-2 inline-flex rounded-full bg-saffron/15 px-2 py-0.5 text-[11px] font-black text-chilli">
+                  {item.variantLabel}
+                </span>
               ) : null}
 
               {isDeal && !compact ? (
@@ -102,9 +111,9 @@ export function ProductCard({
                     </span>
                   ) : null}
 
-                  {drinkBadge && item.drink_volume_liters && item.drink_volume_liters > 0 ? (
+                  {drinkBadge && item.drink_volume_ml && item.drink_volume_ml > 0 ? (
                     <span className="inline-flex items-center gap-1 rounded-full bg-stone-100 px-2 py-0.5 text-[11px] font-black text-stone-800">
-                      <Flame size={12} aria-hidden /> {item.drink_volume_liters}L
+                      <Flame size={12} aria-hidden /> {formatDrinkVolume(item.drink_volume_ml)}
                     </span>
                   ) : null}
                 </div>
@@ -122,9 +131,12 @@ export function ProductCard({
               ) : null}
 
               {!compact && !isDeal ? (
-                <span className="inline-flex items-center gap-1 rounded-full bg-stone-100 px-2 py-0.5 capitalize">
-                  <Flame size={11} aria-hidden /> {item.spiceLevel}
-                </span>
+                <>
+                  <span className="text-stone-400" aria-hidden="true">·</span>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-stone-100 px-2 py-0.5 capitalize">
+                    <Flame size={11} aria-hidden /> {item.spiceLevel.charAt(0).toUpperCase() + item.spiceLevel.slice(1)}
+                  </span>
+                </>
               ) : null}
             </div>
 
@@ -133,6 +145,7 @@ export function ProductCard({
                 <button
                   type="button"
                   onClick={() => setDetailsOpen(true)}
+                  aria-label={`View details for ${item.name}`}
                   className="inline-flex min-h-10 w-full items-center justify-center gap-1.5 rounded-xl border border-stone-200 bg-white text-sm font-bold text-charcoal active:scale-[0.97]"
                 >
                   View Details
@@ -142,12 +155,13 @@ export function ProductCard({
               <button
                 type="button"
                 onClick={() => openCustomizer(item)}
+                aria-label={isDeal ? `Add ${item.name} deal to cart` : `Add ${item.name} to cart`}
                 className={`inline-flex min-h-10 w-full items-center justify-center gap-1.5 rounded-xl bg-ember text-sm font-bold text-white active:scale-[0.97] ${
                   isDeal ? "" : ""
                 }`}
               >
                 <Plus size={16} aria-hidden />
-                {isDeal ? "Order Now" : "Add"}
+                {isDeal ? "Add Deal" : item.options?.length ? "Choose Options" : "Add"}
               </button>
             </div>
           </div>
@@ -186,4 +200,8 @@ export function PopularItemsStrip({ items }: { items: MenuItem[] }) {
       </div>
     </section>
   );
+}
+
+function formatDrinkVolume(volumeMl: number) {
+  return volumeMl >= 1000 ? `${volumeMl / 1000}L` : `${volumeMl}ml`;
 }

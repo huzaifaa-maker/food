@@ -3,13 +3,13 @@ import Link from "next/link";
 import { Clock, MessageCircle, ShoppingBag } from "lucide-react";
 import { CheckoutFlow } from "@/components/checkout-flow";
 import { business } from "@/lib/config";
-import { buildWhatsAppUrl } from "@/lib/format";
+import { buildWhatsAppUrl, whatsappHelpMessage } from "@/lib/format";
 import { listDeliveryAreas } from "@/lib/store";
 
 export const metadata: Metadata = {
-  title: "Order Online",
+  title: "Order Online in Multan",
   description:
-    "Checkout directly with Zaiqa Junction, choose delivery area and payment method, then confirm your homemade food order on WhatsApp."
+    "Order fresh homemade food in Multan directly from Zaiqa Junction. Choose your delivery area and payment method, then confirm your order on WhatsApp instantly."
 };
 
 export default async function OrderPage() {
@@ -26,7 +26,7 @@ export default async function OrderPage() {
           </p>
           <div className="mt-5 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
             <a
-              href={buildWhatsAppUrl("Assalam o Alaikum Zaiqa Junction, I need help placing an order.")}
+              href={buildWhatsAppUrl(whatsappHelpMessage)}
               target="_blank"
               rel="noreferrer"
               className="btn-primary col-span-2 sm:col-span-1"

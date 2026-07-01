@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Clock, Mail, MapPin, MessageCircle, Navigation, Phone, Send } from "lucide-react";
 import { FadeInSection } from "@/components/fade-in-section";
 import { business, chef } from "@/lib/config";
-import { buildWhatsAppUrl, formatCurrency } from "@/lib/format";
+import { buildWhatsAppUrl, formatCurrency, whatsappOrderMessage } from "@/lib/format";
 import type { DeliveryArea } from "@/lib/types";
 
 type ContactDeliverySectionProps = {
@@ -23,7 +23,7 @@ export function ContactDeliverySection({ areas }: ContactDeliverySectionProps) {
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <a
-            href={buildWhatsAppUrl(`Assalam o Alaikum ${business.name}, I want to order.`)}
+            href={buildWhatsAppUrl(whatsappOrderMessage)}
             target="_blank"
             rel="noreferrer"
             className="flex min-h-[72px] items-center gap-3 rounded-2xl border border-stone-200 bg-cream p-4 active:scale-[0.99]"

@@ -3,13 +3,13 @@
 import { MessageCircle } from "lucide-react";
 import { useCart } from "@/components/cart-provider";
 import { business } from "@/lib/config";
-import { buildCartMessage, buildWhatsAppUrl } from "@/lib/format";
+import { buildCartMessage, buildWhatsAppUrl, whatsappOrderMessage } from "@/lib/format";
 
 export function FloatingWhatsApp() {
   const { lines, subtotal } = useCart();
   const message = lines.length
     ? buildCartMessage(lines, subtotal)
-    : `Assalam o Alaikum ${business.name}, I want to place an order.`;
+    : whatsappOrderMessage;
 
   return (
     <a

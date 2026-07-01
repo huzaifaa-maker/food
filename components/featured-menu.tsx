@@ -42,7 +42,7 @@ export function FeaturedMenu({ items }: FeaturedMenuProps) {
     <FadeInSection id="menu" className="bg-cream py-10 sm:py-16 lg:py-20">
       <div className="container-pad">
         <SectionHeader
-          eyebrow="Quick order"
+          eyebrow="Popular dishes"
           title="Featured dishes"
           description="Best sellers first, with clear prices and fast customization."
         />

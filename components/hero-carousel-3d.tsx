@@ -6,6 +6,7 @@ import type { CSSProperties, PointerEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, MessageCircle, ShoppingBag } from "lucide-react";
 import { buildWhatsAppUrl } from "@/lib/format";
+import { business } from "@/lib/config";
 import { ExplodedBurger3D } from "@/components/exploded-burger-3d";
 
 type HeroCarouselItem = {
@@ -152,7 +153,7 @@ export function HeroCarousel3D() {
               Order Now
             </Link>
             <a
-              href={buildWhatsAppUrl(`Assalam o Alaikum Zaiqa Junction, I want to order ${copyItem.title}.`)}
+              href={buildWhatsAppUrl(`Assalam o Alaikum ${business.name}, I want to order ${copyItem.title}.`)}
               target="_blank"
               rel="noreferrer"
               className="premium-hero__icon"

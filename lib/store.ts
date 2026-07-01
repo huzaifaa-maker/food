@@ -19,7 +19,7 @@ export async function listMenuItems() {
   if (supabase) {
     const { data, error } = await supabase
       .from("menu_items")
-      .select("*")
+      .select("*, deals(*)")
       .eq("is_available", true)
       .order("sort_order", { ascending: true });
 
@@ -44,13 +44,26 @@ export async function createMenuItem(item: Partial<MenuItem>) {
     tags: item.tags ?? ["New"],
     spiceLevel: item.spiceLevel ?? "medium",
     prepTime: Number(item.prepTime ?? 20),
-    available: item.available ?? true
+    available: item.available ?? true,
+    variantLabel: item.variantLabel,
+    optionsHint: item.optionsHint,
+    options: item.options,
+    handi_quantity: item.handi_quantity,
+    handi_size: item.handi_size,
+    appetizer_count: item.appetizer_count,
+    appetizer_types: item.appetizer_types,
+    naan_quantity: item.naan_quantity,
+    drink_volume_ml: item.drink_volume_ml,
+    free_items: item.free_items
   };
 
   const supabase = getSupabaseAdmin();
 
   if (supabase) {
     await supabase.from("menu_items").insert(toDbMenuItem(created));
+    if (created.categoryId === "deals") {
+      await supabase.from("deals").insert(toDbDeal(created));
+    }
   }
 
   demoMenuItems = [created, ...demoMenuItems];
@@ -249,6 +262,11 @@ function calculateDiscount(code: string | undefined, subtotal: number) {
 }
 
 function fromDbMenuItem(row: Record<string, unknown>): MenuItem {
+  const rawDeal = Array.isArray(row.deals)
+    ? (row.deals[0] as Record<string, unknown> | undefined)
+    : (row.deals as Record<string, unknown> | undefined);
+  const deal = rawDeal ?? row;
+
   return {
     id: String(row.id),
     categoryId: String(row.category_id),
@@ -262,7 +280,17 @@ function fromDbMenuItem(row: Record<string, unknown>): MenuItem {
     mealTime: row.meal_time ? (row.meal_time as MenuItem["mealTime"]) : undefined,
     spiceLevel: (row.spice_level as MenuItem["spiceLevel"]) ?? "medium",
     prepTime: Number(row.prep_time_minutes ?? 20),
-    available: Boolean(row.is_available ?? true)
+    available: Boolean(row.is_available ?? true),
+    variantLabel: row.variant_label ? String(row.variant_label) : undefined,
+    optionsHint: row.options_hint ? String(row.options_hint) : undefined,
+    options: Array.isArray(row.options) ? (row.options as MenuItem["options"]) : undefined,
+    handi_quantity: deal.handi_quantity == null ? undefined : Number(deal.handi_quantity),
+    handi_size: deal.handi_size == null ? undefined : String(deal.handi_size),
+    appetizer_count: deal.appetizer_count == null ? undefined : Number(deal.appetizer_count),
+    appetizer_types: Array.isArray(deal.appetizer_types) ? (deal.appetizer_types as string[]) : undefined,
+    naan_quantity: deal.naan_quantity == null ? undefined : Number(deal.naan_quantity),
+    drink_volume_ml: deal.drink_volume_ml == null ? undefined : Number(deal.drink_volume_ml),
+    free_items: Array.isArray(deal.free_items) ? (deal.free_items as string[]) : undefined
   };
 }
 
@@ -280,7 +308,23 @@ function toDbMenuItem(item: MenuItem) {
     meal_time: item.mealTime ?? null,
     spice_level: item.spiceLevel,
     prep_time_minutes: item.prepTime,
-    is_available: item.available
+    is_available: item.available,
+    variant_label: item.variantLabel ?? null,
+    options_hint: item.optionsHint ?? null,
+    options: item.options ?? null
+  };
+}
+
+function toDbDeal(item: MenuItem) {
+  return {
+    menu_item_id: item.id,
+    handi_quantity: item.handi_quantity ?? 0,
+    handi_size: item.handi_size ?? "",
+    appetizer_count: item.appetizer_count ?? 0,
+    appetizer_types: item.appetizer_types ?? [],
+    naan_quantity: item.naan_quantity ?? 0,
+    drink_volume_ml: item.drink_volume_ml ?? 0,
+    free_items: item.free_items ?? []
   };
 }
 

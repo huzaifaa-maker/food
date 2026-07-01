@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Clock, MapPin, MessageCircle, Navigation, Phone, Send, Store } from "lucide-react";
 import { SectionHeader } from "@/components/section-header";
 import { business } from "@/lib/config";
-import { buildWhatsAppUrl, formatCurrency } from "@/lib/format";
+import { buildWhatsAppUrl, formatCurrency, whatsappOrderMessage } from "@/lib/format";
 import { listDeliveryAreas } from "@/lib/store";
 
 export const metadata: Metadata = {
@@ -31,7 +31,7 @@ export default async function ContactPage() {
         <div className="container-pad grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
           <div className="grid gap-4">
             {([
-              [MessageCircle, "WhatsApp", business.phoneDisplay, buildWhatsAppUrl("Assalam o Alaikum Zaiqa Junction, I want to order.")],
+              [MessageCircle, "WhatsApp", business.phoneDisplay, buildWhatsAppUrl(whatsappOrderMessage)],
               [Phone, "Phone", business.phoneDisplay, `tel:${business.phoneDisplay.replace(/[^0-9+]/g, "")}`],
               [Clock, "Business hours", business.hours, "#hours"],
               [Navigation, "Kitchen location", business.kitchenArea, business.googleBusinessUrl],
@@ -61,7 +61,7 @@ export default async function ContactPage() {
           <div className="surface overflow-hidden">
             <iframe
               src={business.mapsEmbedUrl}
-              title="Zaiqa Junction Google Maps"
+              title="Map showing Zaiqa Junction location at Shah Rukn E Alam Town, Multan"
               className="h-[360px] w-full border-0"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -77,32 +77,43 @@ export default async function ContactPage() {
             title="Transparent fees and operating hours"
             description="Keep delivery details easy to scan so customers know whether they should choose delivery, pickup, WhatsApp, or Foodpanda."
           />
-          <div className="grid gap-3 sm:grid-cols-2">
-            {deliveryAreas.map((area) => (
-              <div key={area.id} className="surface p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="font-black text-charcoal">{area.name}</p>
-                    <p className="mt-1 text-sm text-stone-600">{area.eta}</p>
+          <div>
+            <p className="mb-4 flex items-center gap-2 rounded-lg bg-cream px-4 py-3 text-sm font-bold text-charcoal">
+              <Clock size={16} className="text-ember" aria-hidden />
+              All zones operate{" "}
+              <span className="font-black">{business.hours}</span>
+            </p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {deliveryAreas.map((area) => (
+                <div key={area.id} className="surface p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="font-black text-charcoal">{area.name}</p>
+                      <p className="mt-1 text-sm text-stone-600">{area.eta}</p>
+                    </div>
+                    <MapPin size={20} className="text-ember" />
                   </div>
-                  <MapPin size={20} className="text-ember" />
+                  <div className="mt-4 grid gap-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-stone-600">Fee</span>
+                      <span className="font-black text-charcoal">
+                        {area.id === "other-area"
+                          ? "Confirmed on WhatsApp"
+                          : area.id === "pickup"
+                            ? "Free"
+                            : formatCurrency(area.fee)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-stone-600">Minimum order</span>
+                      <span className="font-black text-charcoal">
+                        {area.minimumOrder > 0 ? formatCurrency(area.minimumOrder) : "None"}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="mt-4 grid gap-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-stone-600">Fee</span>
-                    <span className="font-black text-charcoal">{formatCurrency(area.fee)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-stone-600">Minimum order</span>
-                    <span className="font-black text-charcoal">{formatCurrency(area.minimumOrder)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-stone-600">Hours</span>
-                    <span className="font-black text-charcoal">{business.hours}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -1,43 +1,26 @@
-# TODO - Zaiqa Junction menu fixes
+# TODO - Digital Menu Refinement
 
-## Phase 1: Understand & align
-- [x] Inspect current menu rendering (ProductCard / MenuBrowser)
-- [x] Inspect current image resolution (lib/visuals.ts)
-- [x] Inspect current customization modal (AddToCartSheet)
-- [x] Inspect cart model constraints (CartProvider / types)
+## Step 1: Inspect current menu data & image mappings
+- [x] Read `lib/data.ts` (categories, menuItems, deal fields, tea items)
+- [x] Read `lib/visuals.ts` (resolveMenuImage mappings)
+- [x] Read `components/deal-details-modal.tsx` (how deal badges render)
 
-## Phase 2: Data model + variant consolidation (single entry per product)
-- [ ] Extend `MenuItem` type to support option groups (e.g., Half/Full, 3-6-12 pcs, etc.) and hint badge text
-- [ ] Refactor `lib/data.ts` to remove duplicate entries:
-  - Nuggets: consolidate into one entry with 3/6/12 options
-  - Tempura Nuggets: consolidate into one entry with 4/8 options
-  - Handi/Karahi: consolidate into one entry with Half/Full options
-  - Pasta: consolidate into one entry with Half/Full options
-  - Wings, Strips: consolidate into one entry with piece-count options
-- [ ] Update any deal references / seed order references to the new consolidated item ids
+## Step 2: Implement requested UI/content changes
+- [ ] Update category labeling/organization:
+  - [ ] Rename Chapli Burgers → Chupli Burgers with Single/Double
+  - [ ] Ensure Crunchy Burger section includes Crunchy Patty, Zinger, Double Decker
+  - [ ] Ensure Wings section splits Masala Wings and Plain Baked Wings
+- [ ] Fix images:
+  - [ ] Milky Naan image mapping to `/images/menu/milky-naan.webp`
+  - [ ] Wrap images replaced with correct product images (no Golden Nuggets)
+  - [ ] Chunky Chicken image replaced with 12-piece chicken popcorn image
+- [ ] Add new category `Tea Junction` with 4 teas (price, description, packaging visuals)
+- [ ] Expand deal details for 649 and 2899:
+  - [ ] Update handi quantity, appetizers, naans, drink volume (liters)
+  - [ ] Ensure `free_items` matches manual text/images
+- [ ] Consistency check: verify all modified items retain correct prices
 
-## Phase 3: UI updates
-- [ ] Update `components/product-card.tsx`:
-  - Show base price (lowest option)
-  - Show hint badge text when options exist
-  - Ensure Add opens modal for options
-- [ ] Update `components/add-to-cart-sheet.tsx`:
-  - Replace hardcoded Half/Full logic with generic option-group UI
-  - Dynamic unit price update based on selected option
-
-## Phase 4: Image correctness
-- [ ] Replace `lib/visuals.ts` regex rules with explicit `item.id` → correct `public/images/menu/*.webp` mappings
-- [ ] Add/assign composite deal images for Deal 649 and Deal 2899
-- [ ] Ensure all affected items use distinct images (no duplicates on same viewport adjacency)
-
-## Phase 5: Adjacency rule (no same image adjacent in menu grid)
-- [ ] Update `components/menu-browser.tsx` to reorder visible items to avoid adjacent equal image src
-
-## Phase 6: Verification
-- [ ] Run lint/build
-- [ ] Manual checks on /menu:
-  - Options badges show correctly
-  - Modal reveals correct quantity/options selectors and prices update
-  - No adjacent repeated images
-  - Deals show composite images
+## Step 3: Validate
+- [ ] Run `npm run build` (or equivalent) and fix any TS errors
+- [ ] Manually verify `/menu` and deal modal UI in browser
 

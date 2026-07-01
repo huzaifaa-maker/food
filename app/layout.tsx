@@ -89,7 +89,7 @@ const restaurantSchema = {
   image: `${business.siteUrl}/images/menu/kitchen.webp`,
   servesCuisine: ["Pakistani", "Fast Food", "Homemade Food"],
   priceRange: "Rs. 30 - Rs. 2999",
-  openingHours: "Mo-Su 18:00-01:00",
+  openingHours: "Mo-Su 12:00-02:00",
   acceptsReservations: false,
   ...(averageRating
     ? {

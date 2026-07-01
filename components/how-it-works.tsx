@@ -3,7 +3,7 @@ import { ArrowRight, ClipboardList, MessageCircle, UtensilsCrossed } from "lucid
 import { FadeInSection } from "@/components/fade-in-section";
 import { SectionHeader } from "@/components/section-header";
 import { business } from "@/lib/config";
-import { buildWhatsAppUrl } from "@/lib/format";
+import { buildWhatsAppUrl, whatsappOrderMessage } from "@/lib/format";
 
 const steps = [
   {
@@ -59,7 +59,7 @@ export function HowItWorks() {
             Order Now <ArrowRight size={18} />
           </Link>
           <a
-            href={buildWhatsAppUrl(`Assalam o Alaikum ${business.name}, I want to place an order.`)}
+            href={buildWhatsAppUrl(whatsappOrderMessage)}
             target="_blank"
             rel="noreferrer"
             className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-coriander px-5 py-3 text-sm font-black text-white shadow-soft transition hover:-translate-y-0.5 sm:w-auto"

@@ -16,10 +16,15 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
   const [filter, setFilter] = useState("all");
   const [filtersOpen, setFiltersOpen] = useState(false);
 
+  const uniqueItems = useMemo(
+    () => items.filter((item, index, self) => index === self.findIndex((candidate) => candidate.id === item.id)),
+    [items]
+  );
+
   const filteredItems = useMemo(() => {
     const normalized = query.trim().toLowerCase();
 
-    return items.filter((item) => {
+    return uniqueItems.filter((item) => {
       const matchesQuery =
         !normalized ||
         item.name.toLowerCase().includes(normalized) ||
@@ -35,7 +40,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
 
       return matchesQuery && matchesCategory && matchesFilter;
     });
-  }, [category, filter, items, query]);
+  }, [category, filter, query, uniqueItems]);
 
   const filterOptions = [
     ["all", "All"],
@@ -54,7 +59,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
             id="menu-search-mobile"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search dishes..."
+            placeholder="Search dishes, e.g. 'Zinger', 'handi', 'chai'..."
             className="min-h-12 w-full bg-transparent px-3 text-base outline-none"
             aria-label="Search menu"
           />
@@ -66,7 +71,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
         </div>
 
         <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <button type="button" onClick={() => setCategory("all")} className={chipClass(category === "all", true)}>
+          <button type="button" onClick={() => setCategory("all")} aria-pressed={category === "all"} className={chipClass(category === "all", true)}>
             All
           </button>
           {categories.map((item) => (
@@ -74,6 +79,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
               key={item.id}
               type="button"
               onClick={() => setCategory(item.id)}
+              aria-pressed={category === item.id}
               className={chipClass(category === item.id, true)}
             >
               {item.name}
@@ -84,19 +90,27 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
         <button
           type="button"
           onClick={() => setFiltersOpen((value) => !value)}
+          aria-expanded={filtersOpen}
+          aria-controls="mobile-filter-panel"
           className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-stone-200 bg-white px-4 text-sm font-bold text-charcoal"
         >
           <SlidersHorizontal size={16} aria-hidden />
           {filtersOpen ? "Hide filters" : "More filters"}
+          {filter !== "all" && (
+            <span className="ml-1 grid h-5 w-5 place-items-center rounded-full bg-ember text-[10px] font-black text-white">
+              1
+            </span>
+          )}
         </button>
 
         {filtersOpen ? (
-          <div className="flex flex-wrap gap-2">
+          <div id="mobile-filter-panel" className="flex flex-wrap gap-2">
             {filterOptions.map(([value, label]) => (
               <button
                 key={value}
                 type="button"
                 onClick={() => setFilter(value)}
+                aria-pressed={filter === value}
                 className={chipClass(filter === value, false)}
               >
                 {label}
@@ -130,7 +144,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
           <div className="mt-5">
             <p className="text-sm font-black text-charcoal">Categories</p>
             <div className="mt-3 grid gap-2">
-              <button type="button" onClick={() => setCategory("all")} className={chipClass(category === "all", false)}>
+              <button type="button" onClick={() => setCategory("all")} aria-pressed={category === "all"} className={chipClass(category === "all", false)}>
                 All items
               </button>
               {categories.map((item) => (
@@ -138,6 +152,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
                   key={item.id}
                   type="button"
                   onClick={() => setCategory(item.id)}
+                  aria-pressed={category === item.id}
                   className={chipClass(category === item.id, false)}
                 >
                   {item.name}
@@ -157,6 +172,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
                   key={value}
                   type="button"
                   onClick={() => setFilter(value)}
+                  aria-pressed={filter === value}
                   className={chipClass(filter === value, false)}
                 >
                   {label}
@@ -169,8 +185,24 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
 
       <section>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="text-sm font-bold text-stone-600">
-            Showing <span className="text-charcoal">{filteredItems.length}</span> items
+          <p className="text-sm font-bold text-stone-600" aria-live="polite" aria-atomic="true">
+            Showing <span className="text-charcoal">{filteredItems.length}</span>
+            {filteredItems.length !== uniqueItems.length && (
+              <> of <span className="text-charcoal">{uniqueItems.length}</span></>
+            )}{" "}
+            {filteredItems.length === 1 ? "item" : "items"}
+            {(query || category !== "all" || filter !== "all") && (
+              <>
+                {" "}
+                <button
+                  type="button"
+                  onClick={() => { setQuery(""); setCategory("all"); setFilter("all"); }}
+                  className="ml-1 text-xs font-black text-ember underline hover:no-underline"
+                >
+                  Clear filters
+                </button>
+              </>
+            )}
           </p>
           <p className="rounded-full bg-cream px-3 py-1 text-xs font-black uppercase tracking-wide text-chilli">
             ZAIQA15 on Rs. 999+
@@ -183,8 +215,15 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
         </div>
         {!filteredItems.length ? (
           <div className="mt-4 rounded-xl border border-dashed border-stone-300 bg-white p-8 text-center">
-            <p className="font-black text-charcoal">No menu items found.</p>
+            <p className="font-black text-charcoal">No dishes match your search.</p>
             <p className="mt-2 text-sm text-stone-600">Try a different category or search term.</p>
+            <button
+              type="button"
+              onClick={() => { setQuery(""); setCategory("all"); setFilter("all"); }}
+              className="mt-4 rounded-full bg-ember px-4 py-2 text-sm font-black text-white hover:bg-saffron"
+            >
+              Clear filters
+            </button>
           </div>
         ) : null}
       </section>

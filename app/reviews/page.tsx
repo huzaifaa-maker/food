@@ -3,20 +3,51 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import { ReviewForm } from "@/components/review-form";
 import { SectionHeader } from "@/components/section-header";
+import { business } from "@/lib/config";
 import { listReviews } from "@/lib/store";
 import { galleryImages, resolveSafeFoodImage } from "@/lib/visuals";
 
 export const metadata: Metadata = {
-  title: "Customer Reviews",
-  description: "Read Zaiqa Junction customer testimonials, Foodpanda-style ratings, and review gallery photos."
+  title: "Customer Reviews in Multan",
+  description: "Read Zaiqa Junction customer reviews in Multan — ratings, testimonials, and food photos from customers in Shah Rukn E Alam Town and surrounding areas."
 };
 
 export default async function ReviewsPage() {
   const reviews = await listReviews();
   const average = reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
 
+  const reviewsSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: business.name,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: average.toFixed(1),
+      reviewCount: reviews.length,
+      bestRating: 5,
+      worstRating: 1
+    },
+    review: reviews.map((review) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: review.name },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: review.rating,
+        bestRating: 5,
+        worstRating: 1
+      },
+      reviewBody: review.quote,
+      datePublished: review.createdAt?.slice(0, 10)
+    }))
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsSchema) }}
+      />
+
       <section className="bg-charcoal text-white">
         <div className="container-pad py-10 sm:py-14">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-saffron">Customer proof</p>
@@ -28,7 +59,7 @@ export default async function ReviewsPage() {
             </div>
             <div className="rounded-lg border border-white/10 bg-white/[0.08] px-4 py-3">
               <p className="text-3xl font-black text-white">{reviews.length}</p>
-              <p className="text-xs uppercase tracking-wide text-orange-100">Approved reviews</p>
+              <p className="text-xs uppercase tracking-wide text-orange-100">Approved {reviews.length === 1 ? "review" : "reviews"}</p>
             </div>
           </div>
         </div>
@@ -49,7 +80,7 @@ export default async function ReviewsPage() {
                     <div className="relative aspect-[16/10]">
                       <Image
                         src={resolveSafeFoodImage(review.image)}
-                        alt={`${review.name} review food photo`}
+                        alt={`Food photo from ${review.name}'s review`}
                         fill
                         sizes="45vw"
                         className="object-cover"
@@ -57,9 +88,9 @@ export default async function ReviewsPage() {
                     </div>
                   ) : null}
                   <div className="p-5">
-                    <div className="flex text-saffron">
+                    <div className="flex text-saffron" role="img" aria-label={`${review.rating} out of 5 stars`}>
                       {Array.from({ length: review.rating }).map((_, index) => (
-                        <Star key={index} size={16} fill="currentColor" />
+                        <Star key={index} size={16} fill="currentColor" aria-hidden="true" />
                       ))}
                     </div>
                     <p className="mt-4 text-sm leading-6 text-stone-700">{review.quote}</p>
@@ -88,7 +119,7 @@ export default async function ReviewsPage() {
           <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             {galleryImages.map((image) => (
               <div key={image.src} className="relative aspect-square overflow-hidden rounded-lg">
-                <Image src={image.src} alt={image.alt} fill sizes="18vw" className="object-cover" />
+                <Image src={image.src} alt={image.alt} fill sizes="18vw" className="object-cover" loading="lazy" />
               </div>
             ))}
           </div>

@@ -9,6 +9,12 @@ export function buildWhatsAppUrl(message: string) {
   return `https://wa.me/${business.whatsappPhone}?text=${encodeURIComponent(message)}`;
 }
 
+/** Standard CTA: generic order intent from any button on the site */
+export const whatsappOrderMessage = `Assalam o Alaikum ${business.name}, I'd like to place an order.`;
+
+/** Help CTA: used on the /order page when user wants assistance */
+export const whatsappHelpMessage = `Assalam o Alaikum ${business.name}, I need help placing an order.`;
+
 function formatLineDetail(line: CartLine) {
   const total = formatCurrency(line.price * line.quantity);
   const addonText =

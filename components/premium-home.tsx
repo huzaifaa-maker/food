@@ -31,7 +31,7 @@ import { ProductCard } from "@/components/product-card";
 import { useCart } from "@/components/cart-provider";
 import { business, chef } from "@/lib/config";
 import { categories } from "@/lib/data";
-import { buildWhatsAppUrl, formatCurrency } from "@/lib/format";
+import { buildWhatsAppUrl, formatCurrency, whatsappOrderMessage } from "@/lib/format";
 import type { DeliveryArea, MenuItem, Review } from "@/lib/types";
 import { galleryImages, resolveMenuImage } from "@/lib/visuals";
 
@@ -538,7 +538,7 @@ function TrustSection({ reviews }: { reviews: Review[] }) {
                 <Star key={index} size={16} fill="currentColor" />
               ))}
             </div>
-            <p className="mt-3 text-sm text-cream/65">Customer rating from approved reviews.</p>
+            <p className="mt-3 text-sm text-cream/65">{reviews.length} approved {reviews.length === 1 ? "review" : "reviews"}.</p>
           </div>
           {hygieneBadges.map((badge) => (
             <div key={badge} className="rounded-lg border border-charcoal/10 bg-white p-5">
@@ -826,7 +826,7 @@ function InstagramFeed() {
 
 function ContactSection({ areas }: { areas: DeliveryArea[] }) {
   const primaryArea = areas.find((area) => area.active);
-  const whatsappUrl = buildWhatsAppUrl(`Assalam o Alaikum ${business.name}, I want to place an order.`);
+  const whatsappUrl = buildWhatsAppUrl(whatsappOrderMessage);
   const contactFacts: Array<{ label: string; value: string; icon: Icon }> = [
     { label: "Open", value: business.hours, icon: Clock },
     { label: "Fresh promise", value: "Cooked after confirmation", icon: Flame },

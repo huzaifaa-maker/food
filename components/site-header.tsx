@@ -11,15 +11,11 @@ import { business } from "@/lib/config";
 const routeLinks = [
   { href: "/menu", label: "Menu" },
   { href: "/order", label: "Order" },
+  { href: "/reviews", label: "Reviews" },
   { href: "/contact", label: "Contact" }
 ];
 
-const homeLinks = [
-  { href: "/#menu", label: "Menu" },
-  { href: "/#full-menu", label: "Deals" },
-  { href: "/#reviews", label: "Reviews" },
-  { href: "/#contact", label: "Contact" }
-];
+const homeLinks = routeLinks;
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -71,7 +67,7 @@ export function SiteHeader() {
           </span>
           <span className="min-w-0">
             <span className={`block truncate text-sm font-black uppercase leading-4 tracking-wide ${logoTextClass}`}>
-              Zaiqa Junction
+              {business.name}
             </span>
             <span className={`hidden text-[11px] sm:block ${logoSubTextClass}`}>Premium home kitchen</span>
           </span>
@@ -82,6 +78,7 @@ export function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
+              aria-current={isActive(link.href) ? "page" : undefined}
               className={`min-h-11 rounded-lg px-3 py-2 text-sm font-bold transition ${
                 isActive(link.href)
                   ? "bg-ember text-white"
@@ -141,6 +138,7 @@ export function SiteHeader() {
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
+              aria-current={isActive(link.href) ? "page" : undefined}
               className={`flex min-h-12 items-center rounded-xl px-4 text-base font-bold ${
                 isActive(link.href) ? "bg-ember text-white" : "text-stone-700 active:bg-stone-100"
               }`}

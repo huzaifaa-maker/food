@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Facebook, Instagram, Mail, MessageCircle, ShoppingBag } from "lucide-react";
+import { Facebook, Instagram, Mail, MessageCircle } from "lucide-react";
 import { business, chef } from "@/lib/config";
-import { buildWhatsAppUrl } from "@/lib/format";
+import { buildWhatsAppUrl, whatsappOrderMessage } from "@/lib/format";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -23,19 +23,16 @@ export function SiteFooter() {
 
         <div>
           <p className="text-sm font-black uppercase tracking-wide text-white">Quick links</p>
-          <nav className="mt-3 grid gap-2 text-sm">
-            <a href="/#menu" className="hover:text-saffron">
+          <nav className="mt-3 grid gap-2 text-sm" aria-label="Quick links">
+            <Link href="/menu" className="hover:text-saffron">
               Menu
-            </a>
-            <a href="/#full-menu" className="hover:text-saffron">
-              Deals
-            </a>
-            <a href="/#reviews" className="hover:text-saffron">
+            </Link>
+            <Link href="/reviews" className="hover:text-saffron">
               Reviews
-            </a>
-            <a href="/#contact" className="hover:text-saffron">
+            </Link>
+            <Link href="/contact" className="hover:text-saffron">
               Contact
-            </a>
+            </Link>
             <Link href="/order" className="hover:text-saffron">
               Order now
             </Link>
@@ -45,7 +42,7 @@ export function SiteFooter() {
         <div>
           <p className="text-sm font-black uppercase tracking-wide text-white">Contact</p>
           <div className="mt-3 grid gap-2 text-sm">
-            <a href={buildWhatsAppUrl(`Assalam o Alaikum ${business.name}, I want to order.`)}>
+            <a href={buildWhatsAppUrl(whatsappOrderMessage)}>
               WhatsApp · {business.phoneDisplay}
             </a>
             <a href={`mailto:${business.email}`} className="inline-flex items-center gap-1.5 hover:text-saffron">
@@ -63,37 +60,30 @@ export function SiteFooter() {
           <p className="text-sm font-black uppercase tracking-wide text-white">Social</p>
           <div className="mt-4 flex gap-2">
             <a
-              href={buildWhatsAppUrl(`Assalam o Alaikum ${business.name}, I want to order.`)}
-              aria-label="WhatsApp"
+              href={buildWhatsAppUrl(whatsappOrderMessage)}
+              aria-label="Contact us on WhatsApp"
               className="grid h-10 w-10 place-items-center rounded-xl bg-white/10 text-white hover:bg-coriander"
             >
-              <MessageCircle size={18} />
+              <MessageCircle size={18} aria-hidden="true" />
             </a>
             <a
               href={business.social.facebook}
-              aria-label="Facebook"
+              aria-label="Visit our Facebook page"
               target="_blank"
               rel="noreferrer"
               className="grid h-10 w-10 place-items-center rounded-xl bg-white/10 text-white hover:bg-ember"
             >
-              <Facebook size={18} />
+              <Facebook size={18} aria-hidden="true" />
             </a>
             <a
               href={business.social.instagram}
-              aria-label="Instagram"
+              aria-label="Visit our Instagram page"
               target="_blank"
               rel="noreferrer"
               className="grid h-10 w-10 place-items-center rounded-xl bg-white/10 text-white hover:bg-ember"
             >
-              <Instagram size={18} />
+              <Instagram size={18} aria-hidden="true" />
             </a>
-            <Link
-              href="/order"
-              aria-label="Order online"
-              className="grid h-10 w-10 place-items-center rounded-xl bg-white/10 text-white hover:bg-ember"
-            >
-              <ShoppingBag size={18} />
-            </Link>
           </div>
         </div>
       </div>

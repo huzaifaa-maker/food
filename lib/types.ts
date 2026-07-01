@@ -44,7 +44,7 @@ export type MenuItem = {
   appetizer_count?: number;
   appetizer_types?: string[];
   naan_quantity?: number;
-  drink_volume_liters?: number;
+  drink_volume_ml?: number;
   free_items?: string[];
 };
 
