@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     template: "%s | Zaiqa Junction"
   },
   description:
-    "Order premium homemade Pakistani food from Zaiqa Junction. Hygienic home kitchen, fresh small-batch cooking, and fast local delivery with WhatsApp confirmation.",
+    "Order fresh homemade Pakistani food from Zaiqa Junction in Multan with direct WhatsApp confirmation.",
   keywords: [
     "Zaiqa Junction",
     "homemade food delivery",

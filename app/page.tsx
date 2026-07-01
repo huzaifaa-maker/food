@@ -10,7 +10,7 @@ import { listDeliveryAreas, listMenuItems, listReviews } from "@/lib/store";
 export const metadata: Metadata = {
   title: "Order Fresh Homemade Food | Zaiqa Junction Multan",
   description:
-    "Browse burgers, handis, wraps, fries, and chai from Zaiqa Junction. Fresh homemade food from Shah Shams, Multan with direct WhatsApp confirmation."
+    "Order burgers, handi, wraps, fries, and chai from Zaiqa Junction with direct WhatsApp confirmation in Multan."
 };
 
 export default async function HomePage() {

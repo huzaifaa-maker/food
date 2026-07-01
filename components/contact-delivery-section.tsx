@@ -18,7 +18,7 @@ export function ContactDeliverySection({ areas }: ContactDeliverySectionProps) {
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-ember">Contact & delivery</p>
           <h2 className="mt-2 font-display text-2xl font-black text-charcoal sm:text-3xl">Order from Shah Shams, Multan</h2>
-          <p className="mt-2 text-sm text-stone-600">Kitchen by {chef.name} · {business.hours}</p>
+          <p className="mt-2 text-sm text-stone-600">Freshly prepared food, ready for delivery or pickup · {business.hours}</p>
         </div>
 
         <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

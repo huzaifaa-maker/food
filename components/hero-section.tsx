@@ -39,7 +39,7 @@ export function HeroSection() {
           </h1>
 
           <p className="mt-4 max-w-xl text-[15px] font-medium leading-7 text-white/78 sm:text-base sm:leading-8">
-            Burgers, handi, fries, wraps, and chai from a hygienic home kitchen in Multan.
+            Order burgers, handi, fries, wraps, and chai with direct WhatsApp confirmation in Multan.
           </p>
 
           <div className="mt-6 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">

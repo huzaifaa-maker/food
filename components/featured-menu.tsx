@@ -44,7 +44,7 @@ export function FeaturedMenu({ items }: FeaturedMenuProps) {
         <SectionHeader
           eyebrow="Popular dishes"
           title="Featured dishes"
-          description="Best sellers first, with clear prices and fast customization."
+          description="Best-selling dishes with simple ordering."
         />
 
         <div className="mt-7 flex flex-wrap gap-2">

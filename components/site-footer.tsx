@@ -17,7 +17,7 @@ export function SiteFooter() {
             </span>
             <p className="font-display text-xl font-bold text-white">{business.name}</p>
           </div>
-          <p className="mt-3 text-sm leading-6 text-orange-100">{business.tagline}</p>
+          <p className="mt-3 text-sm leading-6 text-orange-100">Fresh homemade food, packed and delivered in Multan.</p>
           <p className="mt-2 text-xs text-orange-200">{chef.name} · {business.kitchenArea}</p>
         </div>
 
