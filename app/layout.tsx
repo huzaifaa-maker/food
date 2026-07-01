@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CartProvider } from "@/components/cart-provider";
 import { FloatingCtas } from "@/components/floating-ctas";
 import { FloatingWhatsApp } from "@/components/floating-whatsapp";
@@ -124,6 +125,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CartToast />
           <FloatingWhatsApp />
           <FloatingCtas />
+          <SpeedInsights />
         </CartProvider>
       </body>
     </html>
