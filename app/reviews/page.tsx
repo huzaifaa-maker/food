@@ -82,7 +82,7 @@ export default async function ReviewsPage() {
                         src={resolveSafeFoodImage(review.image)}
                         alt={`Food photo from ${review.name}'s review`}
                         fill
-                        sizes="45vw"
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                         className="object-cover"
                       />
                     </div>
@@ -119,7 +119,7 @@ export default async function ReviewsPage() {
           <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             {galleryImages.map((image) => (
               <div key={image.src} className="relative aspect-square overflow-hidden rounded-lg">
-                <Image src={image.src} alt={image.alt} fill sizes="18vw" className="object-cover" loading="lazy" />
+                <Image src={image.src} alt={image.alt} fill sizes="(min-width: 1024px) 16vw, (min-width: 640px) 25vw, 50vw" className="object-cover" loading="lazy" />
               </div>
             ))}
           </div>

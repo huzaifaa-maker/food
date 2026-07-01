@@ -61,8 +61,8 @@ export function SiteHeader() {
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <div className="container-pad flex min-h-14 items-center justify-between sm:min-h-16">
-        <Link href="/" className="flex min-h-11 min-w-0 items-center gap-2.5 sm:gap-3" onClick={() => setOpen(false)}>
-            <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl bg-white shadow-glow ring-1 ring-white/30">
+        <Link href="/" className="flex min-h-11 min-w-0 max-w-[70%] items-center gap-2.5 sm:gap-3" onClick={() => setOpen(false)}>
+          <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl bg-white shadow-glow ring-1 ring-white/30">
             <Image src={business.logoThumb} alt="" fill sizes="40px" className="object-cover" priority />
           </span>
           <span className="min-w-0">

@@ -396,7 +396,7 @@ function MenuShowcase({ items, bestSellers }: { items: MenuItem[]; bestSellers: 
           </Link>
         </div>
 
-        <div className="mt-8 flex gap-2 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mt-8 flex flex-wrap gap-2">
           {filters.map((filter) => (
             <button
               key={filter.id}

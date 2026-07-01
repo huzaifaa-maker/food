@@ -2,8 +2,8 @@ export const business = {
   name: "Zaiqa Junction",
   placeName: "Zaiqa Junction With Zahra's",
   tagline: "Fast food and homemade Pakistani comfort food, delivered fresh in Multan",
-  phoneDisplay: "+92 317 6802585",
-  whatsappPhone: process.env.NEXT_PUBLIC_WHATSAPP_PHONE ?? "923176802585",
+  phoneDisplay: "03026665620",
+  whatsappPhone: process.env.NEXT_PUBLIC_WHATSAPP_PHONE ?? "923026665620",
   email: "Umarfarooq5674@gmail.com",
   foodpandaUrl: process.env.NEXT_PUBLIC_FOODPANDA_URL ?? "https://www.foodpanda.pk/",
   googleBusinessUrl:
@@ -11,14 +11,17 @@ export const business = {
   mapsEmbedUrl:
     process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL ??
     "https://www.google.com/maps?q=Zaiqa+Junction+With+Zahra%27s,+6H32%2B5Q,+Shah+Rukn+E+Alam+Town,+Multan&output=embed",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://zaiqa-junction.vercel.app",
   hours: "12:00 PM - 2:00 AM",
   currency: "Rs.",
   kitchenArea: "6H32+5Q, Shah Rukn E Alam Town, Multan",
+  streetAddress: "Shah Shams, Shah Rukn-e-Alam Town, Multan",
+  addressLocality: "Multan",
+  addressRegion: "Punjab",
+  addressCountry: "PK",
   social: {
     facebook: "https://www.facebook.com/share/1CgKaund7B/",
-    instagram:
-      "https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=mulo5or",
+    instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "https://www.instagram.com/zaiqajunction/",
     tiktok: "https://www.tiktok.com/@zaiqajunction7?_r=1&_t=ZS-97NYbWqTR04",
     youtube: "https://www.youtube.com/@ZaiqaJunction01"
   },

@@ -21,7 +21,7 @@ export function ContactDeliverySection({ areas }: ContactDeliverySectionProps) {
           <p className="mt-2 text-sm text-stone-600">Kitchen by {chef.name} · {business.hours}</p>
         </div>
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <a
             href={buildWhatsAppUrl(whatsappOrderMessage)}
             target="_blank"
@@ -63,7 +63,7 @@ export function ContactDeliverySection({ areas }: ContactDeliverySectionProps) {
             </span>
           </a>
 
-          <div className="flex min-h-[72px] items-center gap-3 rounded-2xl border border-stone-200 bg-cream p-4">
+          <div className="flex min-h-[74px] items-center gap-3 rounded-[1.25rem] border border-stone-200 bg-cream p-4">
             <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-stone-200 text-charcoal">
               <Clock size={20} />
             </span>
@@ -101,14 +101,27 @@ export function ContactDeliverySection({ areas }: ContactDeliverySectionProps) {
           </div>
         </div>
 
-        <div className="mt-8 overflow-hidden rounded-2xl border border-stone-200">
-          <iframe
-            src={business.mapsEmbedUrl}
-            title="Zaiqa Junction kitchen location — Shah Shams Multan"
-            className="h-[220px] w-full border-0 sm:h-[280px]"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+        <div className="mt-8 rounded-[1.5rem] border border-stone-200 bg-cream/40 p-4 sm:p-5">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p className="text-sm font-black text-charcoal">Visit the kitchen</p>
+              <p className="mt-1 text-sm text-stone-600">{business.streetAddress}</p>
+              <p className="mt-1 text-sm text-stone-600">Plus code: {business.kitchenArea}</p>
+            </div>
+            <a href={business.googleBusinessUrl} target="_blank" rel="noreferrer" className="text-sm font-black text-ember underline-offset-4 hover:underline">
+              Open in Google Maps
+            </a>
+          </div>
+          <div className="mt-4 overflow-hidden rounded-[1.25rem] border border-stone-200">
+            <iframe
+              src={business.mapsEmbedUrl}
+              title="Zaiqa Junction kitchen location — Shah Shams Multan"
+              className="aspect-[16/10] w-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
         </div>
 
         <div className="mt-6 grid gap-2.5 sm:flex sm:flex-wrap">

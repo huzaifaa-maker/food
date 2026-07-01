@@ -41,25 +41,25 @@ export function TestimonialsSection({ reviews }: TestimonialsSectionProps) {
 
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {reviews.slice(0, 4).map((review) => (
-            <article key={review.id} className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.08]">
+            <article key={review.id} className="flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-white/10 bg-white/[0.08] shadow-[0_20px_45px_rgba(0,0,0,0.16)]">
               {review.image ? (
                 <div className="relative aspect-[16/10]">
                   <Image
                     src={resolveSafeFoodImage(review.image)}
                     alt={`Food photo from ${review.name}`}
                     fill
-                    sizes="25vw"
+                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                     className="object-cover"
                   />
                 </div>
               ) : null}
-              <div className="p-5">
+              <div className="flex flex-1 flex-col p-5">
                 <div className="flex text-saffron">
                   {Array.from({ length: review.rating }).map((_, index) => (
                     <Star key={index} size={16} fill="currentColor" />
                   ))}
                 </div>
-                <p className="mt-4 text-sm leading-6 text-orange-50">{review.quote}</p>
+                <p className="mt-4 flex-1 text-sm leading-7 text-orange-50">{review.quote}</p>
                 <p className="mt-4 text-sm font-black text-white">{review.name}</p>
                 <p className="text-xs uppercase tracking-wide text-orange-200">{review.source}</p>
               </div>

@@ -10,7 +10,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-charcoal text-orange-50">
       <div className="container-pad grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-4">
-        <div>
+        <div className="max-w-sm">
           <div className="flex items-center gap-3">
             <span className="relative h-11 w-11 overflow-hidden rounded-xl ring-1 ring-white/20">
               <Image src={business.logoThumb} alt="" fill sizes="44px" className="object-cover" />
@@ -24,16 +24,16 @@ export function SiteFooter() {
         <div>
           <p className="text-sm font-black uppercase tracking-wide text-white">Quick links</p>
           <nav className="mt-3 grid gap-2 text-sm" aria-label="Quick links">
-            <Link href="/menu" className="hover:text-saffron">
+            <Link href="/menu" className="w-fit rounded-md px-1 py-1 hover:text-saffron focus-visible:text-saffron">
               Menu
             </Link>
-            <Link href="/reviews" className="hover:text-saffron">
+            <Link href="/reviews" className="w-fit rounded-md px-1 py-1 hover:text-saffron focus-visible:text-saffron">
               Reviews
             </Link>
             <Link href="/contact" className="hover:text-saffron">
               Contact
             </Link>
-            <Link href="/order" className="hover:text-saffron">
+            <Link href="/order" className="w-fit rounded-md px-1 py-1 hover:text-saffron focus-visible:text-saffron">
               Order now
             </Link>
           </nav>
@@ -42,14 +42,16 @@ export function SiteFooter() {
         <div>
           <p className="text-sm font-black uppercase tracking-wide text-white">Contact</p>
           <div className="mt-3 grid gap-2 text-sm">
-            <a href={buildWhatsAppUrl(whatsappOrderMessage)}>
+            <a href={buildWhatsAppUrl(whatsappOrderMessage)} className="w-fit rounded-md px-1 py-1 hover:text-saffron focus-visible:text-saffron">
               WhatsApp · {business.phoneDisplay}
             </a>
-            <a href={`mailto:${business.email}`} className="inline-flex items-center gap-1.5 hover:text-saffron">
+            <a href={`mailto:${business.email}`} className="inline-flex w-fit items-center gap-1.5 rounded-md px-1 py-1 hover:text-saffron focus-visible:text-saffron">
               <Mail size={14} aria-hidden />
               {business.email}
             </a>
             <span>{business.hours}</span>
+            <span>{business.streetAddress}</span>
+            <span>Plus code: {business.kitchenArea}</span>
             <Link href="/contact" className="hover:text-saffron">
               Delivery areas
             </Link>
@@ -58,11 +60,11 @@ export function SiteFooter() {
 
         <div>
           <p className="text-sm font-black uppercase tracking-wide text-white">Social</p>
-          <div className="mt-4 flex gap-2">
+          <div className="mt-4 flex flex-wrap gap-2">
             <a
               href={buildWhatsAppUrl(whatsappOrderMessage)}
               aria-label="Contact us on WhatsApp"
-              className="grid h-10 w-10 place-items-center rounded-xl bg-white/10 text-white hover:bg-coriander"
+              className="grid h-11 w-11 place-items-center rounded-xl bg-white/10 text-white transition hover:bg-coriander"
             >
               <MessageCircle size={18} aria-hidden="true" />
             </a>

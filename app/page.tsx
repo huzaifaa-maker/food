@@ -16,12 +16,14 @@ export const metadata: Metadata = {
 export default async function HomePage() {
   const [items, reviews, areas] = await Promise.all([listMenuItems(), listReviews(), listDeliveryAreas()]);
   const approvedReviews = reviews.filter((review) => review.approved);
+  const popularIds = new Set(items.filter((item) => item.available && item.popular).slice(0, 6).map((item) => item.id));
+  const featuredItems = items.filter((item) => item.available && !popularIds.has(item.id));
 
   return (
     <>
       <HeroSection />
       <PopularItemsStrip items={items} />
-      <FeaturedMenu items={items} />
+      <FeaturedMenu items={featuredItems} />
       <FullMenuPhotoSection />
       <TestimonialsSection reviews={approvedReviews} />
       <ContactDeliverySection areas={areas} />

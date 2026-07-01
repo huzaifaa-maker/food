@@ -70,7 +70,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
           ) : null}
         </div>
 
-        <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex flex-wrap gap-2">
           <button type="button" onClick={() => setCategory("all")} aria-pressed={category === "all"} className={chipClass(category === "all", true)}>
             All
           </button>

@@ -71,7 +71,7 @@ export function FullMenuPhotoSection() {
                     src={page.src}
                     alt={page.alt}
                     fill
-                    sizes="(min-width: 640px) 45vw, 92vw"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className="object-contain p-2"
                     loading="lazy"
                   />

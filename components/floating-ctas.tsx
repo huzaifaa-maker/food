@@ -20,10 +20,10 @@ export function FloatingCtas() {
       role="toolbar"
       aria-label="Quick order actions"
     >
-      <div className="mx-auto grid max-w-lg grid-cols-[1fr_3rem_3rem] gap-2">
+      <div className="mx-auto grid w-full max-w-lg grid-cols-[minmax(0,1fr)_3rem_3rem] gap-2">
         <Link
           href="/order"
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-ember px-4 text-sm font-black text-white shadow-glow active:scale-[0.98]"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-ember px-3 text-sm font-black text-white shadow-glow active:scale-[0.98]"
         >
           <ShoppingBag size={18} aria-hidden />
           Order Now{itemCount > 0 ? ` (${itemCount})` : ""}

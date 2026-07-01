@@ -47,13 +47,13 @@ export function FeaturedMenu({ items }: FeaturedMenuProps) {
           description="Best sellers first, with clear prices and fast customization."
         />
 
-        <div className="mt-6 flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mt-7 flex flex-wrap gap-2">
           {filters.map((filter) => (
             <button
               key={filter.id}
               type="button"
               onClick={() => setActive(filter.id)}
-              className={`min-h-11 shrink-0 snap-start rounded-full px-4 py-2.5 text-sm font-bold transition active:scale-[0.97] ${
+              className={`min-h-11 shrink-0 rounded-full px-4 py-2.5 text-sm font-bold transition active:scale-[0.97] ${
                 active === filter.id
                   ? "bg-ember text-white shadow-glow"
                   : "border border-stone-200 bg-white text-charcoal"
@@ -65,7 +65,7 @@ export function FeaturedMenu({ items }: FeaturedMenuProps) {
         </div>
 
         {filtered.length > 0 ? (
-          <div className="mt-5 grid gap-3 sm:mt-6 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {filtered.map((item) => (
               <ProductCard key={item.id} item={item} />
             ))}

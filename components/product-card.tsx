@@ -25,6 +25,7 @@ export function ProductCard({
   const isDrink = item.id === "drink-350ml";
   const imageWrapperClass = `relative shrink-0 overflow-hidden ${compact ? "h-[96px]" : isDeal ? "aspect-[5/3] bg-cream/10" : "aspect-[4/3]"} ${isDrink ? "bg-[#ffd15a]" : ""}`;
   const imageClass = (isDeal && !compact) || isDrink ? "object-contain object-center" : "object-cover";
+  const imageSizes = compact ? "96px" : "(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw";
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
@@ -49,44 +50,40 @@ export function ProductCard({
 
   return (
     <>
-      <article className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-soft transition active:scale-[0.99]">
-        <div className={compact ? "grid grid-cols-[96px_minmax(0,1fr)]" : ""}>
-          <div className={imageWrapperClass}>
+      <article className={`group flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-stone-200/80 bg-white shadow-soft transition duration-250 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,15,15,0.08)] active:scale-[0.99] ${compact ? "min-h-[160px]" : "min-h-full"}`}>
+        <div className={compact ? "grid grid-cols-[96px_minmax(0,1fr)]" : "flex h-full flex-col"}>
+          <div className={compact ? "relative aspect-square overflow-hidden bg-stone-100" : imageWrapperClass}>
             <Image
               src={image}
               alt={item.name}
               fill
-              sizes={compact ? "96px" : "(min-width: 1024px) 25vw, 92vw"}
+              sizes={imageSizes}
               className={imageClass}
               style={isDrink ? { objectFit: "contain", objectPosition: "center" } : undefined}
               loading="lazy"
             />
             {item.popular ? (
-              <span className="absolute left-1.5 top-1.5 inline-flex items-center gap-0.5 rounded-full bg-chilli px-1.5 py-0.5 text-[9px] font-bold uppercase text-white">
-                <Star size={9} fill="currentColor" aria-hidden /> Popular
+              <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-chilli px-2 py-1 text-[10px] font-black uppercase tracking-[0.08em] text-white">
+                <Star size={10} fill="currentColor" aria-hidden /> Popular
               </span>
             ) : null}
           </div>
 
-          <div className={`flex min-w-0 flex-col ${compact ? "gap-2 p-2.5" : "gap-3 p-3.5 sm:p-4"}`}>
+          <div className={`flex min-w-0 flex-1 flex-col ${compact ? "gap-2 p-2.5" : "gap-3 p-3.5 sm:p-4"}`}>
             <div className="min-w-0">
               <div className={compact ? "grid min-w-0 gap-1" : "grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-2"}>
-                <h3 className="min-w-0 text-[15px] font-bold leading-snug text-charcoal">{item.name}</h3>
-                <p
-                  className={`w-fit max-w-full shrink-0 whitespace-nowrap rounded-full bg-ember/10 px-2 py-0.5 font-black text-ember ${
-                    compact ? "text-[13px]" : "text-sm"
-                  }`}
-                >
+                <h3 className="min-w-0 text-[15px] font-black leading-snug text-charcoal">{item.name}</h3>
+                <p className={`shrink-0 rounded-full bg-ember/10 px-2.5 py-1 text-center font-black text-ember ${compact ? "text-[12px]" : "text-sm"}`}>
                   {price}
                 </p>
               </div>
 
               {!compact ? (
-                <p className="mt-1 line-clamp-2 text-sm leading-5 text-stone-600">{item.description}</p>
+                <p className="mt-2 line-clamp-2 text-sm leading-6 text-stone-600">{item.description}</p>
               ) : null}
 
               {item.variantLabel ? (
-                <span className="mt-2 inline-flex rounded-full bg-saffron/15 px-2 py-0.5 text-[11px] font-black text-chilli">
+                <span className="mt-2 inline-flex rounded-full bg-saffron/15 px-2.5 py-1 text-[11px] font-black text-chilli">
                   {item.variantLabel}
                 </span>
               ) : null}
@@ -120,7 +117,7 @@ export function ProductCard({
               ) : null}
             </div>
 
-              <div className="flex flex-wrap items-center gap-2 text-[11px] text-stone-600">
+            <div className="mt-auto flex flex-wrap items-center gap-2 pt-2 text-[11px] text-stone-600">
               <span className="inline-flex items-center gap-1 rounded-full bg-stone-100 px-2 py-0.5">
                 <Clock size={11} aria-hidden /> {item.prepTime}m
               </span>
@@ -140,13 +137,13 @@ export function ProductCard({
               ) : null}
             </div>
 
-            <div className={compact || isDeal ? "grid grid-cols-2 gap-2" : ""}>
+            <div className={`mt-3 grid gap-2 ${compact || isDeal ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-2"}`}>
               {isDeal ? (
                 <button
                   type="button"
                   onClick={() => setDetailsOpen(true)}
                   aria-label={`View details for ${item.name}`}
-                  className="inline-flex min-h-10 w-full items-center justify-center gap-1.5 rounded-xl border border-stone-200 bg-white text-sm font-bold text-charcoal active:scale-[0.97]"
+                  className="inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-xl border border-stone-200 bg-white text-sm font-bold text-charcoal transition hover:border-ember hover:text-ember active:scale-[0.97]"
                 >
                   View Details
                 </button>
@@ -156,9 +153,7 @@ export function ProductCard({
                 type="button"
                 onClick={() => openCustomizer(item)}
                 aria-label={isDeal ? `Add ${item.name} deal to cart` : `Add ${item.name} to cart`}
-                className={`inline-flex min-h-10 w-full items-center justify-center gap-1.5 rounded-xl bg-ember text-sm font-bold text-white active:scale-[0.97] ${
-                  isDeal ? "" : ""
-                }`}
+                className="inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-xl bg-ember text-sm font-bold text-white transition hover:bg-[#ff9451] active:scale-[0.97]"
               >
                 <Plus size={16} aria-hidden />
                 {isDeal ? "Add Deal" : item.options?.length ? "Choose Options" : "Add"}
@@ -190,9 +185,9 @@ export function PopularItemsStrip({ items }: { items: MenuItem[] }) {
             See all
           </Link>
         </div>
-        <div className="mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {popular.map((item) => (
-            <div key={item.id} className="w-[min(84vw,300px)] shrink-0 snap-start">
+            <div key={item.id}>
               <ProductCard item={item} compact />
             </div>
           ))}
