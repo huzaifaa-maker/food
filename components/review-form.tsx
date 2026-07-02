@@ -92,7 +92,7 @@ export function ReviewForm() {
                   aria-label={`${value} out of 5 stars`}
                 />
                 <span
-                  className="grid h-10 w-10 place-items-center rounded-md bg-cream text-saffron transition"
+                  className="grid h-11 w-11 place-items-center rounded-xl bg-cream text-saffron transition"
                   aria-hidden="true"
                 >
                   <Star size={20} fill={index < displayRating ? "currentColor" : "none"} />

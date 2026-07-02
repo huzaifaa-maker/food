@@ -41,7 +41,7 @@ export function TestimonialsSection({ reviews }: TestimonialsSectionProps) {
 
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {reviews.slice(0, 4).map((review) => (
-            <article key={review.id} className="flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-white/10 bg-white/[0.08] shadow-[0_20px_45px_rgba(0,0,0,0.16)]">
+            <article key={review.id} className="flex h-full flex-col overflow-hidden rounded-card border border-white/10 bg-white/[0.08] shadow-soft">
               {review.image ? (
                 <div className="relative aspect-[16/10]">
                   <Image

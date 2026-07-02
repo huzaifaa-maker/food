@@ -49,6 +49,10 @@ nav {
   min-width: 0;
 }
 
+main section[id] {
+  scroll-margin-top: calc(6.5rem + env(safe-area-inset-top));
+}
+
 img,
 svg,
 video,
@@ -107,6 +111,14 @@ select {
   .text-balance {
     text-wrap: balance;
   }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @layer components {
@@ -114,8 +126,17 @@ select {
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
+  .product-grid {
+    @apply grid items-stretch gap-4;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .site-header-offset {
+    padding-top: calc(3.5rem + env(safe-area-inset-top));
+  }
+
   .surface-card {
-    @apply rounded-[1.35rem] border border-stone-200/80 bg-white/95 shadow-[0_20px_60px_rgba(15,15,15,0.05)] backdrop-blur;
+    @apply rounded-card border border-stone-200/80 bg-white/95 shadow-soft backdrop-blur;
   }
 
   .btn-primary {
@@ -127,10 +148,8 @@ select {
   }
 
   .surface {
-    @apply rounded-2xl shadow-soft;
-    background: rgba(255, 255, 255, 0.92) !important;
+    @apply rounded-card border border-stone-200/80 bg-white/95 shadow-soft;
     backdrop-filter: blur(14px);
-    border: 1px solid rgba(24, 20, 17, 0.06) !important;
   }
 
   .premium-hero {
@@ -445,6 +464,22 @@ select {
   }
 }
 
+@media (min-width: 640px) and (max-width: 1199px) {
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .site-header-offset {
+    padding-top: calc(4rem + env(safe-area-inset-top));
+  }
+}
+
+@media (max-width: 639px) {
+  .product-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -461,6 +496,11 @@ select {
   .fade-in-up.is-visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .fade-in-up:target {
+    opacity: 1;
+    transform: none;
   }
 }
 

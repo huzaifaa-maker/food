@@ -43,18 +43,18 @@ export function CartSummary({ compact = false }: { compact?: boolean }) {
                 <button
                   type="button"
                   aria-label={`Decrease ${line.name}`}
-                  className="grid h-10 w-10 place-items-center text-charcoal active:bg-stone-100"
+                  className="grid h-11 w-11 place-items-center text-charcoal active:bg-stone-100"
                   onClick={() => setLineQuantity(line.lineId, line.quantity - 1)}
                 >
                   <Minus size={16} />
                 </button>
-                <span className="grid h-10 min-w-10 place-items-center border-x border-stone-200 text-sm font-bold">
+                <span className="grid h-11 min-w-11 place-items-center border-x border-stone-200 text-sm font-bold">
                   {line.quantity}
                 </span>
                 <button
                   type="button"
                   aria-label={`Increase ${line.name}`}
-                  className="grid h-10 w-10 place-items-center text-charcoal active:bg-stone-100"
+                  className="grid h-11 w-11 place-items-center text-charcoal active:bg-stone-100"
                   onClick={() => setLineQuantity(line.lineId, line.quantity + 1)}
                 >
                   <Plus size={16} />
@@ -66,7 +66,7 @@ export function CartSummary({ compact = false }: { compact?: boolean }) {
               <button
                 type="button"
                 aria-label={`Remove ${line.name}`}
-                className="mt-4 inline-flex h-10 w-10 items-center justify-center rounded-md bg-stone-100 text-stone-600 hover:text-chilli"
+                className="mt-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-stone-100 text-stone-600 hover:text-chilli"
                 onClick={() => removeLine(line.lineId)}
               >
                 <Trash2 size={16} />

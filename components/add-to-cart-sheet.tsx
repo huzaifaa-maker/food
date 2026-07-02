@@ -91,7 +91,7 @@ export function AddToCartSheet() {
           <button
             type="button"
             onClick={closeCustomizer}
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-stone-200 text-charcoal"
+            className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-stone-200 text-charcoal"
             aria-label="Close"
           >
             <X size={18} />

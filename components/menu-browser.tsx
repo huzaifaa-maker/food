@@ -51,8 +51,8 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
   ] as const;
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
-      <div className="space-y-4 lg:hidden">
+    <div className="grid min-w-0 gap-6 lg:grid-cols-[280px_1fr]">
+      <div className="min-w-0 space-y-4 lg:hidden">
         <div className="flex items-center rounded-xl border border-stone-200 bg-white px-3 shadow-sm">
           <Search size={18} className="shrink-0 text-stone-500" aria-hidden />
           <input
@@ -60,7 +60,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search dishes, e.g. 'Zinger', 'handi', 'chai'..."
-            className="min-h-12 w-full bg-transparent px-3 text-base outline-none"
+            className="min-h-12 min-w-0 w-full bg-transparent px-3 text-base outline-none"
             aria-label="Search menu"
           />
           {query ? (
@@ -70,7 +70,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
           ) : null}
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="scrollbar-none -mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-1 sm:-mx-6 sm:px-6" aria-label="Menu categories">
           <button type="button" onClick={() => setCategory("all")} aria-pressed={category === "all"} className={chipClass(category === "all", true)}>
             All
           </button>
@@ -104,7 +104,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
         </button>
 
         {filtersOpen ? (
-          <div id="mobile-filter-panel" className="flex flex-wrap gap-2">
+          <div id="mobile-filter-panel" className="scrollbar-none -mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-1 sm:-mx-6 sm:px-6">
             {filterOptions.map(([value, label]) => (
               <button
                 key={value}
@@ -132,10 +132,10 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search handi, burger, deal..."
-              className="min-h-11 w-full bg-transparent px-3 text-sm outline-none"
+              className="min-h-11 min-w-0 w-full bg-transparent px-3 text-sm outline-none"
             />
             {query ? (
-              <button type="button" aria-label="Clear search" onClick={() => setQuery("")}>
+              <button type="button" aria-label="Clear search" className="grid h-11 w-11 shrink-0 place-items-center" onClick={() => setQuery("")}>
                 <X size={16} />
               </button>
             ) : null}
@@ -197,7 +197,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
                 <button
                   type="button"
                   onClick={() => { setQuery(""); setCategory("all"); setFilter("all"); }}
-                  className="ml-1 text-xs font-black text-ember underline hover:no-underline"
+                  className="ml-1 inline-flex min-h-11 items-center rounded-lg px-2 align-middle text-xs font-black text-ember underline hover:no-underline"
                 >
                   Clear filters
                 </button>
@@ -208,7 +208,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
             ZAIQA15 on Rs. 999+
           </p>
         </div>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
+        <div className="product-grid mt-4">
           {filteredItems.map((item) => (
             <ProductCard key={item.id} item={item} />
           ))}
@@ -220,7 +220,7 @@ export function MenuBrowser({ categories, items }: MenuBrowserProps) {
             <button
               type="button"
               onClick={() => { setQuery(""); setCategory("all"); setFilter("all"); }}
-              className="mt-4 rounded-full bg-ember px-4 py-2 text-sm font-black text-white hover:bg-saffron"
+              className="mt-4 min-h-11 rounded-full bg-ember px-4 py-2 text-sm font-black text-white hover:bg-saffron"
             >
               Clear filters
             </button>

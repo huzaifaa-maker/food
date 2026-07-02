@@ -186,16 +186,16 @@ export function CheckoutFlow({ deliveryAreas }: CheckoutFlowProps) {
             Repeat customer perks
           </p>
           <div className="mt-3 grid gap-2 text-sm text-stone-600">
-            <p>
-              Use <span className="font-black text-charcoal">ZAIQA15</span> for 15% off orders Rs. 999+.{" "}
+            <div>
+              <p>Use <span className="font-black text-charcoal">ZAIQA15</span> for 15% off orders Rs. 999+.</p>
               <button
                 type="button"
                 onClick={handleAutoFillCoupon}
-                className="inline-flex items-center gap-1 rounded-full bg-ember/10 px-2 py-0.5 text-xs font-black text-ember hover:bg-ember/20"
+                className="mt-2 inline-flex min-h-11 items-center rounded-full bg-ember/10 px-3 py-2 text-xs font-black text-ember hover:bg-ember/20"
               >
                 Tap to apply
               </button>
-            </p>
+            </div>
             {lines.length > 0 && (
               <p>
                 This order earns{" "}
@@ -451,7 +451,7 @@ export function CheckoutFlow({ deliveryAreas }: CheckoutFlowProps) {
           </button>
           {!lines.length && (
             <p className="text-center text-xs text-stone-500">
-              <Link href="/menu" className="font-black text-ember underline">Browse the menu</Link> to add items.
+              <Link href="/menu" className="inline-flex min-h-11 items-center rounded-lg px-1 font-black text-ember underline">Browse the menu</Link> to add items.
             </p>
           )}
         </div>

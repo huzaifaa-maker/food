@@ -21,7 +21,8 @@ const config: Config = {
       },
       boxShadow: {
         glow: "0 18px 60px rgba(255, 122, 0, 0.18)",
-        soft: "0 14px 42px rgba(0, 0, 0, 0.18)"
+        soft: "0 12px 32px rgba(15, 15, 15, 0.08)",
+        raised: "0 20px 48px rgba(15, 15, 15, 0.14)"
       },
       opacity: {
         7: "0.07",
@@ -49,8 +50,9 @@ const config: Config = {
         display: ["var(--font-display)", "ui-sans-serif", "system-ui", "Segoe UI", "Arial", "sans-serif"]
       },
       borderRadius: {
-        card: "0.5rem",
-        "2xl": "0.5rem"
+        card: "1.25rem",
+        "2xl": "1.25rem",
+        "3xl": "1.5rem"
       }
     }
   },

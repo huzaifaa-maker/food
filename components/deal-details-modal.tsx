@@ -38,10 +38,10 @@ export function DealDetailsModal({
   const drinkBadge = typeof item.drink_volume_ml === "number";
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-end justify-center sm:items-center" role="dialog" aria-modal="true">
+    <div className="fixed inset-0 z-[80] flex items-end justify-center sm:items-center sm:p-4" role="dialog" aria-modal="true">
       <div className="absolute inset-0 bg-charcoal/60" onClick={onClose} />
-      <div className="relative z-10 w-full max-w-lg rounded-t-2xl bg-white shadow-[0_18px_50px_rgba(15,15,15,0.18)] sm:rounded-2xl">
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-2xl sm:rounded-t-2xl">
+      <div className="relative z-10 flex max-h-[calc(100svh-env(safe-area-inset-top)-0.75rem)] w-full max-w-lg flex-col overflow-hidden rounded-t-card bg-white shadow-raised sm:max-h-[min(90svh,720px)] sm:rounded-card">
+        <div className="relative aspect-[16/9] w-full shrink-0 overflow-hidden sm:aspect-[4/3]">
           <Image
             src={image}
             alt={item.name}
@@ -53,14 +53,14 @@ export function DealDetailsModal({
           <button
             type="button"
             onClick={onClose}
-            className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-xl bg-white/90 text-charcoal shadow-sm"
+            className="absolute right-3 top-3 grid h-11 w-11 place-items-center rounded-xl bg-white/90 text-charcoal shadow-sm"
             aria-label="Close deal details"
           >
             <X size={18} />
           </button>
         </div>
 
-        <div className="p-5 sm:p-6">
+        <div className="overflow-y-auto p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-6">
           <div className="flex items-start justify-between gap-3">
             <h2 className="font-display text-xl font-black text-charcoal sm:text-2xl">{item.name}</h2>
             <p className="shrink-0 rounded-full bg-ember/10 px-3 py-1 text-lg font-black text-ember">{price}</p>

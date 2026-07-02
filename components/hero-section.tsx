@@ -27,7 +27,7 @@ export function HeroSection() {
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-charcoal to-transparent" />
       </div>
 
-      <div className="container-pad relative flex min-h-[calc(100svh-3.5rem)] items-center pb-[calc(5.75rem+env(safe-area-inset-bottom))] pt-[calc(5.5rem+env(safe-area-inset-top))] sm:min-h-[700px] lg:min-h-[min(88svh,840px)] lg:pb-16 lg:pt-24">
+      <div className="container-pad relative flex items-start pb-[calc(5.75rem+env(safe-area-inset-bottom))] pt-[calc(5.5rem+env(safe-area-inset-top))] sm:min-h-[700px] sm:items-center lg:min-h-[min(88svh,840px)] lg:pb-16 lg:pt-24">
         <div className="w-full max-w-2xl">
           <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/14 bg-white/8 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.14em] text-orange-100 backdrop-blur">
             <MapPin size={14} className="shrink-0 text-ember" aria-hidden />
@@ -56,11 +56,11 @@ export function HeroSection() {
             </Link>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-2 sm:max-w-xl sm:grid-cols-3">
+          <div className="mt-6 grid max-w-xl grid-cols-3 gap-2 sm:gap-3">
             {trustStats.map(({ value, label, icon: Icon }) => (
-              <div key={label} className="rounded-2xl border border-white/10 bg-white/8 p-3 backdrop-blur">
-                <Icon size={15} className="mb-2 text-ember" aria-hidden />
-                <p className="text-base font-black text-cream">{value}</p>
+              <div key={label} className="min-w-0 rounded-2xl border border-white/10 bg-white/8 p-2.5 backdrop-blur sm:p-3">
+                <Icon size={15} className="mb-1.5 text-ember sm:mb-2" aria-hidden />
+                <p className="truncate text-sm font-black text-cream sm:text-base">{value}</p>
                 <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-white/55">{label}</p>
               </div>
             ))}

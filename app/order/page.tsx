@@ -61,7 +61,7 @@ export default async function OrderPage() {
           </div>
           <CheckoutFlow deliveryAreas={deliveryAreas} />
           <div className="mt-6 text-center text-sm text-stone-600">
-            <Link href="/menu" className="font-black text-chilli hover:text-ember">
+            <Link href="/menu" className="inline-flex min-h-11 items-center rounded-lg px-1 font-black text-chilli hover:text-ember">
               Browse the menu
             </Link>{" "}
             to add more items before checkout.

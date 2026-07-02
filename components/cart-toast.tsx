@@ -23,7 +23,7 @@ export function CartToast() {
       role="status"
       aria-live="polite"
     >
-      <div className="pointer-events-auto flex w-full max-w-md items-center gap-3 rounded-2xl border border-stone-200 bg-white p-3 shadow-[0_18px_50px_rgba(15,15,15,0.18)] md:max-w-sm">
+      <div className="pointer-events-auto flex w-full max-w-md items-center gap-3 rounded-2xl border border-stone-200 bg-white p-3 shadow-raised md:max-w-sm">
         <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-coriander text-white">
           <Check size={22} aria-hidden />
         </span>
@@ -35,7 +35,7 @@ export function CartToast() {
         <Link
           href="/order"
           onClick={dismissToast}
-          className="inline-flex min-h-10 shrink-0 items-center gap-1.5 rounded-xl bg-ember px-3 text-xs font-black text-white"
+          className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-xl bg-ember px-3 text-xs font-black text-white"
         >
           <ShoppingBag size={14} aria-hidden />
           View
@@ -43,7 +43,7 @@ export function CartToast() {
         <button
           type="button"
           onClick={dismissToast}
-          className="grid h-9 w-9 shrink-0 place-items-center rounded-lg text-stone-500"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-xl text-stone-500"
           aria-label="Dismiss notification"
         >
           <X size={16} />

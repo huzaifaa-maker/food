@@ -24,16 +24,16 @@ export function SiteFooter() {
         <div>
           <p className="text-sm font-black uppercase tracking-wide text-white">Quick links</p>
           <nav className="mt-3 grid gap-2 text-sm" aria-label="Quick links">
-            <Link href="/menu" className="w-fit rounded-md px-1 py-1 hover:text-saffron focus-visible:text-saffron">
+            <Link href="/menu" className="inline-flex min-h-11 w-fit items-center rounded-lg px-2 hover:text-saffron focus-visible:text-saffron">
               Menu
             </Link>
-            <Link href="/reviews" className="w-fit rounded-md px-1 py-1 hover:text-saffron focus-visible:text-saffron">
+            <Link href="/reviews" className="inline-flex min-h-11 w-fit items-center rounded-lg px-2 hover:text-saffron focus-visible:text-saffron">
               Reviews
             </Link>
-            <Link href="/contact" className="hover:text-saffron">
+            <Link href="/contact" className="inline-flex min-h-11 w-fit items-center rounded-lg px-2 hover:text-saffron">
               Contact
             </Link>
-            <Link href="/order" className="w-fit rounded-md px-1 py-1 hover:text-saffron focus-visible:text-saffron">
+            <Link href="/order" className="inline-flex min-h-11 w-fit items-center rounded-lg px-2 hover:text-saffron focus-visible:text-saffron">
               Order now
             </Link>
           </nav>
@@ -42,17 +42,17 @@ export function SiteFooter() {
         <div>
           <p className="text-sm font-black uppercase tracking-wide text-white">Contact</p>
           <div className="mt-3 grid gap-2 text-sm">
-            <a href={buildWhatsAppUrl(whatsappOrderMessage)} className="w-fit rounded-md px-1 py-1 hover:text-saffron focus-visible:text-saffron">
+            <a href={buildWhatsAppUrl(whatsappOrderMessage)} className="inline-flex min-h-11 w-fit items-center rounded-lg px-2 hover:text-saffron focus-visible:text-saffron">
               WhatsApp · {business.phoneDisplay}
             </a>
-            <a href={`mailto:${business.email}`} className="inline-flex w-fit items-center gap-1.5 rounded-md px-1 py-1 hover:text-saffron focus-visible:text-saffron">
+            <a href={`mailto:${business.email}`} className="inline-flex min-h-11 w-fit items-center gap-1.5 rounded-lg px-2 hover:text-saffron focus-visible:text-saffron">
               <Mail size={14} aria-hidden />
               {business.email}
             </a>
             <span>{business.hours}</span>
             <span>{business.streetAddress}</span>
             <span>Plus code: {business.kitchenArea}</span>
-            <Link href="/contact" className="hover:text-saffron">
+            <Link href="/contact" className="inline-flex min-h-11 w-fit items-center rounded-lg px-2 hover:text-saffron">
               Delivery areas
             </Link>
           </div>
@@ -73,7 +73,7 @@ export function SiteFooter() {
               aria-label="Visit our Facebook page"
               target="_blank"
               rel="noreferrer"
-              className="grid h-10 w-10 place-items-center rounded-xl bg-white/10 text-white hover:bg-ember"
+              className="grid h-11 w-11 place-items-center rounded-xl bg-white/10 text-white hover:bg-ember"
             >
               <Facebook size={18} aria-hidden="true" />
             </a>
@@ -82,7 +82,7 @@ export function SiteFooter() {
               aria-label="Visit our Instagram page"
               target="_blank"
               rel="noreferrer"
-              className="grid h-10 w-10 place-items-center rounded-xl bg-white/10 text-white hover:bg-ember"
+              className="grid h-11 w-11 place-items-center rounded-xl bg-white/10 text-white hover:bg-ember"
             >
               <Instagram size={18} aria-hidden="true" />
             </a>

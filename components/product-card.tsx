@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { CheckCircle2, Clock, Flame, Plus, Star, Utensils } from "lucide-react";
 import { useCart } from "@/components/cart-provider";
 import { formatCurrency } from "@/lib/format";
@@ -18,22 +18,19 @@ export function ProductCard({
   compact?: boolean;
 }) {
   const { openCustomizer } = useCart();
-  const [isMobile, setIsMobile] = useState(false);
   const image = resolveMenuImage(item);
-  const compact = compactProp ?? isMobile;
+  const compact = compactProp ?? false;
   const isDeal = item.categoryId === "deals";
   const isDrink = item.id === "drink-350ml";
-  const imageWrapperClass = `relative shrink-0 overflow-hidden ${compact ? "h-[96px]" : isDeal ? "aspect-[5/3] bg-cream/10" : "aspect-[4/3]"} ${isDrink ? "bg-[#ffd15a]" : ""}`;
-  const imageClass = (isDeal && !compact) || isDrink ? "object-contain object-center" : "object-cover";
-  const imageSizes = compact ? "96px" : "(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw";
-
-  useEffect(() => {
-    const media = window.matchMedia("(max-width: 767px)");
-    const update = () => setIsMobile(media.matches);
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
+  const imageWrapperClass = compact
+    ? "relative h-[160px] overflow-hidden bg-stone-100 sm:h-[190px] xl:h-[210px]"
+    : isDeal
+    ? "relative h-[170px] overflow-hidden bg-cream/10 sm:h-[210px]"
+    : "relative h-[170px] overflow-hidden bg-stone-100 sm:h-[210px]";
+  const imageClass = isDrink ? "object-contain object-center" : "object-cover";
+  const imageSizes = compact
+    ? "(max-width: 767px) 100vw, 180px"
+    : "(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 100vw";
 
   const basePrice = item.options?.length
     ? Math.min(...item.options.map((o) => o.price))
@@ -50,9 +47,9 @@ export function ProductCard({
 
   return (
     <>
-      <article className={`group flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-stone-200/80 bg-white shadow-soft transition duration-250 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,15,15,0.08)] active:scale-[0.99] ${compact ? "min-h-[160px]" : "min-h-full"}`}>
-        <div className={compact ? "grid grid-cols-[96px_minmax(0,1fr)]" : "flex h-full flex-col"}>
-          <div className={compact ? "relative aspect-square overflow-hidden bg-stone-100" : imageWrapperClass}>
+      <article className="group flex h-full w-full max-w-[380px] justify-self-center flex-col overflow-hidden rounded-card border border-stone-200/80 bg-white shadow-soft transition duration-250 hover:-translate-y-1 hover:shadow-raised active:scale-[0.99]">
+        <div className="flex h-full flex-col">
+          <div className={imageWrapperClass}>
             <Image
               src={image}
               alt={item.name}
@@ -69,17 +66,17 @@ export function ProductCard({
             ) : null}
           </div>
 
-          <div className={`flex min-w-0 flex-1 flex-col ${compact ? "gap-2 p-2.5" : "gap-3 p-3.5 sm:p-4"}`}>
+          <div className={`flex min-w-0 flex-1 flex-col ${compact ? "gap-2 p-3" : "gap-3 p-4 sm:p-4"}`}>
             <div className="min-w-0">
-              <div className={compact ? "grid min-w-0 gap-1" : "grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-2"}>
-                <h3 className="min-w-0 text-[15px] font-black leading-snug text-charcoal">{item.name}</h3>
-                <p className={`shrink-0 rounded-full bg-ember/10 px-2.5 py-1 text-center font-black text-ember ${compact ? "text-[12px]" : "text-sm"}`}>
+              <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-2">
+                <h3 className="min-w-0 text-sm font-black leading-snug text-charcoal sm:text-[15px]">{item.name}</h3>
+                <p className={`w-fit shrink-0 whitespace-nowrap rounded-full bg-ember/10 px-2.5 py-1 text-center font-black text-ember ${compact ? "text-[12px]" : "text-sm"}`}>
                   {price}
                 </p>
               </div>
 
               {!compact ? (
-                <p className="mt-2 line-clamp-2 text-sm leading-6 text-stone-600">{item.description}</p>
+                <p className="mt-2 hidden text-sm leading-6 text-stone-600 sm:line-clamp-2">{item.description}</p>
               ) : null}
 
               {item.variantLabel ? (
@@ -89,7 +86,7 @@ export function ProductCard({
               ) : null}
 
               {isDeal && !compact ? (
-                <div className="mt-3 flex flex-wrap gap-2">
+                <div className="mt-3 hidden flex-wrap gap-2 sm:flex">
                   {handiBadge && item.handi_quantity && item.handi_quantity > 0 ? (
                     <span className="inline-flex items-center gap-1 rounded-full bg-stone-100 px-2 py-0.5 text-[11px] font-black text-stone-800">
                       <Utensils size={12} aria-hidden /> {item.handi_quantity} Handi
@@ -122,22 +119,22 @@ export function ProductCard({
                 <Clock size={11} aria-hidden /> {item.prepTime}m
               </span>
               {!compact && !isDeal && item.optionsHint ? (
-                <span className="inline-flex items-center gap-1 rounded-full bg-ember/10 px-2 py-0.5 text-[11px] font-black text-ember">
+                <span className="hidden items-center gap-1 rounded-full bg-ember/10 px-2 py-0.5 text-[11px] font-black text-ember sm:inline-flex">
                   {item.optionsHint}
                 </span>
               ) : null}
 
               {!compact && !isDeal ? (
                 <>
-                  <span className="text-stone-400" aria-hidden="true">·</span>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-stone-100 px-2 py-0.5 capitalize">
+                  <span className="hidden text-stone-400 sm:inline" aria-hidden="true">·</span>
+                  <span className="hidden items-center gap-1 rounded-full bg-stone-100 px-2 py-0.5 capitalize sm:inline-flex">
                     <Flame size={11} aria-hidden /> {item.spiceLevel.charAt(0).toUpperCase() + item.spiceLevel.slice(1)}
                   </span>
                 </>
               ) : null}
             </div>
 
-            <div className={`mt-3 grid gap-2 ${compact || isDeal ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-2"}`}>
+            <div className={`mt-3 grid gap-2 ${isDeal ? "grid-cols-2" : "grid-cols-1"}`}>
               {isDeal ? (
                 <button
                   type="button"
@@ -181,13 +178,13 @@ export function PopularItemsStrip({ items }: { items: MenuItem[] }) {
       <div className="container-pad">
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-xl font-black text-charcoal sm:text-2xl">Popular right now</h2>
-          <Link href="/menu" className="text-sm font-bold text-ember">
+          <Link href="/menu" className="-mr-2 inline-flex min-h-11 items-center rounded-lg px-2 text-sm font-bold text-ember">
             See all
           </Link>
         </div>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="product-grid mt-4">
           {popular.map((item) => (
-            <div key={item.id}>
+            <div key={item.id} className="flex h-full w-full max-w-[380px] justify-self-center">
               <ProductCard item={item} compact />
             </div>
           ))}

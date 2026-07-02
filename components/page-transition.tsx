@@ -18,7 +18,7 @@ export function PageTransition({ children }: PageTransitionProps) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -16 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className={pathname === "/" ? "page-transition w-full min-w-0" : "page-transition w-full min-w-0 pt-16"}
+        className={pathname === "/" ? "page-transition w-full min-w-0" : "site-header-offset page-transition w-full min-w-0"}
       >
         {children}
       </motion.div>

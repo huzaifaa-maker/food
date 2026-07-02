@@ -65,7 +65,7 @@ export function FeaturedMenu({ items }: FeaturedMenuProps) {
         </div>
 
         {filtered.length > 0 ? (
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+          <div className="product-grid mt-6">
             {filtered.map((item) => (
               <ProductCard key={item.id} item={item} />
             ))}
